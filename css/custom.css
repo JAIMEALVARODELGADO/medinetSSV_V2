@@ -1,0 +1,121 @@
+body {
+  background-color:#1D669E;
+}
+
+
+td, th, input, select, textarea {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+img {
+  border: none;
+}
+
+em{
+font-family:arial;
+font-size:11px;
+font-style:normal;
+margin-left:11px;
+}
+
+a:link {
+  color: #1C1CCE;
+}
+
+a:visited {
+  color: #1C1CCE;
+}
+
+a:active {
+  color: #FF7F00;
+}
+
+A:hover{
+  text-decoration:underline;
+  color: #FF7F00;
+}
+
+A{
+  text-decoration:none;
+} 
+
+
+
+.navOpened,
+.navClosed {
+  background-color: #ffffff;
+}
+
+.navOpened .navTitle .titleText {
+  color: #1C1CCE;
+}
+
+.navOpened .navTitleOver .titleText {
+  color: #1C1CCE;
+}
+
+.navTitle .titleHandle {
+  background-color: #1C1CCE;
+}
+
+.navTitleOver .titleHandle {
+  background-color: #1C1CCE;
+}
+
+.navClosed .navTitle .titleText {
+  color: #1C1CCE;
+}
+
+.navClosed .navTitleOver .titleText {
+  color: #1C1CCE;
+}
+
+div.tree {
+  background-color: #ffffff; 
+}
+
+.nodeActive .name {
+  background-color: #3878bf;
+}
+
+#navLayout .nodeActive .name a,
+#navLayout .nodeActive .name a:hover,
+#navLayout .nodeActive .name a:visited,
+#navLayout .nodeActive .name a:active {
+  color: white;
+}
+
+#navLayout .name a,
+#navLayout .name a:visited,
+#navLayout .name a:active {
+  color: #215dc6;
+}
+
+#navLayout .name a:hover {
+  color: #428eff;
+}
+
+
+#contexthelp {
+  font-size: 11px;
+  color: #555555;
+  text-align: left;
+  padding-top: 5px;
+  margin: 0 15px 0 10px;
+  height: 100px;
+  border-top: 1px solid #A7B8EB;
+}
+
+#userInfo {
+  text-align: left;
+  padding-top: 2px;
+  margin: 0 15px 0 10px;
+  color: #555555;
+}
+
+#userInfo .name {
+  padding: 0;
+  margin: 0;
+}
+

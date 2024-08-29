@@ -1,0 +1,24 @@
+body {
+  font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  color: #2F2F4F;
+  background-color: #2F2F4F; 
+}
+
+a:link {
+  color: #0240a3;
+}
+
+a:visited {
+  color: #0240a3;
+}
+
+a:active {
+  color: #000000;
+}
+
+img {
+  border: none;
+}
+

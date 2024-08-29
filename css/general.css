@@ -1,0 +1,42 @@
+body {
+
+}
+a:link {
+  color: #0240a3;
+}
+
+a:visited {
+  color: #0240a3;
+}
+
+a:active {
+  color: #000000;
+}
+
+img {
+  border: none;
+}
+
+th{ 
+  border-style: dashed; 
+  border-width: 2px; 
+  border-color: ff7f00; 
+  background-color: #006699;
+  font-family: verdana, arial; 
+  font-size: 10pt;
+  color: #ffffff;
+  text-align: center;
+} 
+
+td{
+  font-family: arial;
+  font-size: 12px;
+  font-weight: normal;
+  color: #000000;
+  background-color:;
+  text-align: justify;
+  text-indent: 15px; 
+  letter-spacing: 1px;
+  word-spacing: 1px;
+}
+

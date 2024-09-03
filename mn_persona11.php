@@ -37,7 +37,7 @@ $consulta="SELECT tipo_iden,identificacion FROM persona WHERE tipo_iden='$_POST[
 //echo "<br>".$consulta;
 $consulta=$link->query($consulta);
 if($consulta->num_rows > 0){
-    $msg="Existe una persona registrada con la misma identificación";
+    $msg="Existe una persona registrada con la misma identificaciï¿½n";
 }
 else{
     $sql_="INSERT INTO persona(id_persona,tipo_iden,identificacion,papellido,sapellido,pnombre,snombre,fecha_nacim,direccion,telefono,sexo,id_operador,fecha_reg) VALUES(0,'$_POST[tipo_iden]','$_POST[identificacion]','$_POST[papellido]','$_POST[sapellido]','$_POST[pnombre]','$_POST[snombre]','$_POST[fecha_nacim]','$_POST[direccion]','$_POST[telefono]','$_POST[sexo]','$_SESSION[gid_usuario]','$hoy')";   
@@ -49,7 +49,7 @@ else{
     }
     else{$msg="Registro no guardado";}
     if(!empty($_POST['mun_reside']) or !empty($_POST['zona_reside'])  or !empty($_POST['tipo_sangre'])){
-        $sql_="INSERT INTO paciente(id_persona,mun_reside,zona_reside,tipo_sangre) VALUES($id_persona,'$_POST[mun_reside]','$_POST[zona_reside]','$_POST[tipo_sangre]')";
+        $sql_="INSERT INTO paciente(id_persona,mun_reside,zona_reside,tipo_sangre,tipo_usuario) VALUES($id_persona,'$_POST[mun_reside]','$_POST[zona_reside]','$_POST[tipo_sangre]','$_POST[tipo_usuario]')";
         //echo "<br>".$sql_;
         $link->query($sql_);
     }

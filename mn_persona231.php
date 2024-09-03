@@ -34,10 +34,10 @@ $conpac="SELECT id_persona FROM paciente WHERE id_persona='$_POST[id_persona]'";
 //echo "<br>".$conpac;
 $conpac=$link->query($conpac);
 if($conpac->num_rows > 0){
-    $sql_="UPDATE paciente SET mun_reside='$_POST[mun_reside]',zona_reside='$_POST[zona_reside]',tipo_sangre='$_POST[tipo_sangre]' WHERE id_persona='$_POST[id_persona]'";
+    $sql_="UPDATE paciente SET mun_reside='$_POST[mun_reside]',zona_reside='$_POST[zona_reside]',tipo_sangre='$_POST[tipo_sangre]',tipo_usuario='$_POST[tipo_usuario]' WHERE id_persona='$_POST[id_persona]'";
 }
 else{
-    $sql_="INSERT INTO paciente(id_persona,mun_reside,zona_reside,tipo_sangre) VALUES('$_POST[id_persona]','$_POST[mun_reside]','$_POST[zona_reside]','$_POST[tipo_sangre]')";
+    $sql_="INSERT INTO paciente(id_persona,mun_reside,zona_reside,tipo_sangre,tipo_usuario) VALUES('$_POST[id_persona]','$_POST[mun_reside]','$_POST[zona_reside]','$_POST[tipo_sangre]','$_POST[tipo_usuario]')";
 }
 //echo "<br>".$sql_;
 $link->query($sql_);

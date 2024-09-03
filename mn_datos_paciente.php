@@ -24,7 +24,7 @@
     </select>
     </span>        
     </div>
-    </div>
+    
     <div class="fila">
     <span class="etiqueta"><label for="tipo_sangre">Tipo de Sangre:</label></span>
     <span class="form-el"><select name='tipo_sangre' >
@@ -40,4 +40,24 @@
     </select>
     </span>        
     </div>
+
+    <div class="fila">
+    <span class="etiqueta"><label for="zona_reside">Tipo de Usuario:</label></span>
+    <span class="form-el"><select name='tipo_usuario'>
+    <option value=''></option>
+    <?php
+        $consultatpusu="select codi_det,descripcion_det  from detalle_grupo
+        where id_grupo ='5' ORDER BY descripcion_det";
+        //echo "<br>".$consultatpusu
+        $consultatpusu=$link->query($consultatpusu);
+        if($consultatpusu->num_rows<>0){
+            while($rowtp=$consultatpusu->fetch_array()){
+                echo "<option value='$rowtp[codi_det]'>$rowtp[descripcion_det]</option>";
+            }
+        }
+    ?>   
+    </select>
+    </span>        
+    </div>
+
     </fieldset>

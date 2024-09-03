@@ -140,7 +140,7 @@ if(!empty($condicion)){
     $consulta=$link->query($consulta);
     if($consulta->num_rows<>0){
         echo "<br><br><table width='100%'>";
-        echo "<th colspan='4'>Opciones</th>".
+        echo "<th colspan='5'>Opciones</th>".
             "<th>Tp.Iden.</th>".
             "<th>Identificación.</th>".
             "<th>Nombres</th>".
@@ -167,7 +167,7 @@ if(!empty($condicion)){
                 echo "<td width='5%'><a href='#' onclick=editar($row[id_factura]) title='Editar Factura' class='btnhref'><span class='icon-edit'></span></a></td>";
             }
             else{
-                echo "<td width='5%'><a href='#' onclick=erroreditar() class='btnhref'><span class='icon-edit'></span></a></td>";
+                echo "<td width='5%'><a href='#' onclick=erroreditar() class='btnhref' title='Editar Factura'><span class='icon-edit'></span></a></td>";
             }
             if($row['estado_fac']=='A'){
                 echo "<td width='5%'><a href='#' onclick=eliminar($row[id_factura],$row[identificacion]) title='Eliminar Factura' class='btnhref'><span class='icon-trash'></span></a></td>";
@@ -177,16 +177,22 @@ if(!empty($condicion)){
                     echo "<td width='5%'><a href='#' onclick=anular($row[id_factura]) title='Anular Factura' class='btnhref'><span class='icon-circle-with-cross '></span></a></td>";
                 }
                 else{
-                    echo "<td width='5%'><a href='#' class='btnhref'><span class='icon-circle-with-cross '></span></a></td>";
+                    echo "<td width='5%'><a href='#' class='btnhref' title='Anular Factura'><span class='icon-circle-with-cross '></span></a></td>";
                 }                    
             }
             if($row['estado_fac']=='A'){
                 echo "<td width='5%'><a href='#' onclick=cerrar_fac($row[id_factura],$row[valor_total]) title='Cerrar Factura' class='btnhref'><span class='icon-lock'></span></a></td>";
             } 
             else{
-                echo "<td width='5%'><a href='#' onclick=erroreditar() title='' class='btnhref'><span class='icon-lock'></span></a></td>";
+                echo "<td width='5%'><a href='#' onclick=erroreditar() title='Cerrar Factura' class='btnhref'><span class='icon-lock'></span></a></td>";
             }
             echo "<td width='5%'><a href='#' onclick=imprimir($row[id_factura]) title='Imprimir Factura' class='btnhref'><span class='icon-print'></span></a></td>";
+            if($row['estado_fac']=='C'){
+                echo "<td width='5%'><a href='#' onclick=editarRips_fac($row[id_factura],$row[valor_total]) title='RIPS' class='btnhref'><span class='icon-open-book'></span></a></td>";
+            } 
+            else{
+                echo "<td width='5%'><a href='#' onclick=erroreditar() title='RIPS' class='btnhref'><span class='icon-open-book'></span></a></td>";
+            }
             echo "<td>$row[tipo_iden]</td>";
             echo "<td>$row[identificacion]</td>";
             echo "<td>$row[nombres]</td>";

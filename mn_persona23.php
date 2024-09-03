@@ -17,8 +17,9 @@ session_start();
             var error='';
             if(document.form1.mun_reside.value==''){error+="Municipio de Residencia\n";}
             if(document.form1.zona_reside.value==''){error+="Zona de Residencia\n";}
+            if(document.form1.tipo_usuario.value==''){error+="Tipo de Usuario\n";}
             if(error!=''){
-                alert("Es necesario complementar la siguiente información:\n"+error);
+                alert("Es necesario complementar la siguiente informaciï¿½n:\n"+error);
             }
             else{
                 document.form1.submit();
@@ -45,9 +46,9 @@ if($consulta->num_rows > 0){
 ?>
 <form name='form1' method="post" action="mn_persona231.php">
     <?php
-    echo "<fieldset><legend>Información Personal</legend>";
+    echo "<fieldset><legend>Informaciï¿½n Personal</legend>";
     echo "<div class='fila'>";
-    echo "<span class='etiqueta'><label for='tipo_iden'>Tipo de Identificación:</label></span>";
+    echo "<span class='etiqueta'><label for='tipo_iden'>Tipo de Identificaciï¿½n:</label></span>";
     echo "<span class='form-el'>$tipo_iden</span>";      
     echo "</div>";
     echo "<div class='fila'>";
@@ -59,7 +60,7 @@ if($consulta->num_rows > 0){
     require("mn_datos_paciente.php");
     echo "<input type='hidden' name='id_persona' value='$_GET[id_persona]'/>";
 
-    $consultapac="SELECT mun_reside,zona_reside,tipo_sangre FROM paciente WHERE id_persona='$_GET[id_persona]'";
+    $consultapac="SELECT mun_reside,zona_reside,tipo_sangre,tipo_usuario FROM paciente WHERE id_persona='$_GET[id_persona]'";
     //echo "<br>".$consultapac;
     $consultapac=$link->query($consultapac);
     if($consultapac->num_rows > 0){
@@ -67,6 +68,7 @@ if($consulta->num_rows > 0){
         $mun_reside=$rowpac['mun_reside'];
         $zona_reside=$rowpac['zona_reside'];
         $tipo_sangre=$rowpac['tipo_sangre'];
+        $tipo_usuario=$rowpac['tipo_usuario'];
     }
     ?>
     <button type="button" onclick='validar()'><span class="icon-save"></span> Guardar</button>
@@ -75,6 +77,7 @@ if($consulta->num_rows > 0){
         document.form1.mun_reside.value='<?php echo $mun_reside;?>';
         document.form1.zona_reside.value='<?php echo $zona_reside;?>';
         document.form1.tipo_sangre.value='<?php echo $tipo_sangre;?>';
+        document.form1.tipo_usuario.value='<?php echo $tipo_usuario;?>';
     </script>
 </form>
 </body>

@@ -46,16 +46,16 @@ if($consultanum->num_rows<>0){
     //Aqui actualizo el estado de la factura y le coloco el numero 
     $sql_="UPDATE encabezado_factura SET estado_fac='C',numero_fac='$numero_fac' WHERE id_factura='$id_factura'";
     //echo "<br>".$sql_;
-    //$link->query($sql_);
-    generarRips($id_factura);
+    $link->query($sql_);
+    //generarRips($id_factura);
     if($link->affected_rows > 0){
         $msg="Registro guardado con exito";
-        //generarRips($id_factura);
+        generarRips($id_factura);
     }
     else{$msg="Registro no guardado";}
 }
 ?>
-<body onload="continuar_('<?php echo $msg;?>')">
+<body onload="continuar('<?php echo $msg;?>')">
 <form name='form1' method="post" action="mn_factura2.php">
     <?php 
     echo "<br>".$msg;
@@ -98,7 +98,7 @@ function generarRips($idfac_){
             }
             
             $sql="INSERT INTO nrusuario(tipo_documento,numdocumento,tipousuario,fechanacimiento,codsexo,codpaisresidencia,codmunicipioresidencia,codzonaresidencia,incapacidad,codpaisorigen,id_factura)
-            VALUES('$row[tipo_iden]','$row[identificacion]','$row[tipo_usuario]','$row[fecha_nacim]','$sexo','$row[codpaisresidencia]','$row[mun_reside]','$row[zona_reside]','N','$row[codpaisresidencia]','$idfac_')";
+            VALUES('$row[tipo_iden]','$row[identificacion]','$row[tipo_usuario]','$row[fecha_nacim]','$sexo','$row[codpaisresidencia]','$row[mun_reside]','$row[zona_reside]','NO','$row[codpaisresidencia]','$idfac_')";
             //echo $sql;
             $link_->query($sql);            
         }
@@ -113,7 +113,7 @@ function generarRips($idfac_){
     inner join encabezado_factura ef on ef.id_factura =df.id_factura 
     inner join persona p on p.id_persona = ef.id_persona
     where df.id_factura ='$idfac_'";
-    echo "<br>".$consultadet;
+    //echo "<br>".$consultadet;
     $consultadet=$link_->query($consultadet);
     if($consultadet->num_rows<>0){
         while($rowdet=$consultadet->fetch_array()){
@@ -187,7 +187,7 @@ class Detalle{
         $rowconsecutivo=$consultaconsecutivo->fetch_array();
         $consecutivo=$rowconsecutivo['consecutivo'];
         $consecutivo++;
-        echo "<br>Consecutivo ".$consecutivo;      
+        //echo "<br>Consecutivo ".$consecutivo;      
     
         $vrUnitario=$this->vrservicio;
         $vrTotal=$this->cantidad*$this->vrservicio;

@@ -47,6 +47,10 @@ session_start();
         function imprimir(id_){
             window.open("mn_factura25.php?id_factura="+id_,"_new");
         }
+
+        function editarRips_fac(id_){
+            window.open("mn_factura261.php?id_factura="+id_,"_self");
+        }
     </script>
 
 <body>
@@ -187,12 +191,13 @@ if(!empty($condicion)){
                 echo "<td width='5%'><a href='#' onclick=erroreditar() title='Cerrar Factura' class='btnhref'><span class='icon-lock'></span></a></td>";
             }
             echo "<td width='5%'><a href='#' onclick=imprimir($row[id_factura]) title='Imprimir Factura' class='btnhref'><span class='icon-print'></span></a></td>";
-            if($row['estado_fac']=='C'){
+            if($row['estado_fac']=='C'){                
                 echo "<td width='5%'><a href='#' onclick=editarRips_fac($row[id_factura],$row[valor_total]) title='RIPS' class='btnhref'><span class='icon-open-book'></span></a></td>";
             } 
             else{
                 echo "<td width='5%'><a href='#' onclick=erroreditar() title='RIPS' class='btnhref'><span class='icon-open-book'></span></a></td>";
-            }
+            }            
+
             echo "<td>$row[tipo_iden]</td>";
             echo "<td>$row[identificacion]</td>";
             echo "<td>$row[nombres]</td>";

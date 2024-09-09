@@ -152,7 +152,7 @@ a:link{
 }
 a:hover{
     text-decoration: none;
-    //font-size: 1.4em;
+    /*font-size: 1.4em;*/
     background: #83AE73;
     color: #CBDBCD;
     box-shadow: 1px 1px 0px;    
@@ -168,8 +168,9 @@ a:active{
 a:visited{
     color: #fff;
 }
+
 ul {
-    //margin: 5px;    
+    /*margin: 5px;    */
     list-style-type: none;
     list-style-position: outside;
 }

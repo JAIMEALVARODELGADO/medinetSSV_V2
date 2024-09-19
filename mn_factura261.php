@@ -9,7 +9,9 @@ if(!isset($_SESSION['gid_usuario'])){
         </script>
     <?php
 }
-$id_factura=$_GET['id_factura'];
+if(isset($_GET['id_factura'])){
+    $id_factura=$_GET['id_factura'];
+}
 if(!empty($id_factura)){
     $_SESSION['gid_factura']=$id_factura;
 }
@@ -35,6 +37,101 @@ if(!empty($id_factura)){
             //alert(comando);
             eval(comando);
         }
+
+        function activar(){
+            var comando='';            
+            if(form1.tipodocumento.disabled == true){
+                form1.tipodocumento.disabled=false;}
+            else{
+                form1.tipodocumento.disabled=true;}
+            if(form1.numdocumento.disabled == true){
+                form1.numdocumento.disabled=false;}
+            else{
+                form1.numdocumento.disabled=true;}
+            if(form1.tipousuario.disabled == true){
+                form1.tipousuario.disabled=false;}
+            else{
+                form1.tipousuario.disabled=true;}
+            if(form1.fechanacimiento.disabled == true){
+                form1.fechanacimiento.disabled=false;}
+            else{
+                form1.fechanacimiento.disabled=true;}
+            if(form1.codsexo.disabled == true){
+                form1.codsexo.disabled=false;}
+            else{
+                form1.codsexo.disabled=true;}    
+            if(form1.codpaisresidencia.disabled == true){
+                form1.codpaisresidencia.disabled=false;}
+            else{
+                form1.codpaisresidencia.disabled=true;}
+            if(form1.codmunicipioresidencia.disabled == true){
+                form1.codmunicipioresidencia.disabled=false;}
+            else{
+                form1.codmunicipioresidencia.disabled=true;}
+            if(form1.codzonaresidencia.disabled == true){
+                form1.codzonaresidencia.disabled=false;}
+            else{
+                form1.codzonaresidencia.disabled=true;}
+            if(form1.incapacidad.disabled == true){
+                form1.incapacidad.disabled=false;}
+            else{
+                form1.incapacidad.disabled=true;}
+            if(form1.codpaisorigen.disabled == true){
+                form1.codpaisorigen.disabled=false;}
+            else{
+                form1.codpaisorigen.disabled=true;}
+        }
+
+        function validar(cont_){      
+            var comando='',error='';            
+            if(form1.tipodocumento.disabled == false){
+                if(form1.tipodocumento.value==''){
+                    error=error+"Tipo de documento \n";
+                }    
+                if(form1.numdocumento.value==''){        
+                    error=error+"Número de documento \n";
+                }
+                if(form1.tipousuario.value==''){        
+                    error=error+"Tipo de usuario \n";
+                }
+                if(form1.fechanacimiento.value==''){        
+                    error=error+"Fecha de nacimiento \n";
+                }
+                if(form1.codsexo.value==''){        
+                    error=error+"Sexo \n";
+                }
+                if(form1.codpaisresidencia.value==''){
+                    error=error+"País de residencia \n";
+                }
+                if(form1.codpaisresidencia.value=='170' && form1.codmunicipioresidencia.value==''){
+                    error=error+"Municipio de residencia \n";        
+                }
+                if(form1.codpaisresidencia.value!='170' && form1.codmunicipioresidencia.value!=''){
+                    form1.codmunicipioresidencia.value='';
+                }
+                if(form1.codzonaresidencia.value==''){
+                    error=error+"Zona de residencia \n";
+                }
+                if(form1.incapacidad.value==''){
+                    error=error+"Incapacidad \n";
+                }
+                if(form1.codpaisorigen.value==''){
+                    error=error+"País de origen \n";
+                }
+            }
+            else{
+                error=error+"No hay cambios para guardar... \n";
+            }
+
+
+            if(error!=''){
+                alert("Para guardar debe complementar la siguiente información:\n\n"+error);
+            }
+            else{
+                form1.submit();
+            }
+        }
+
     </script>
 <?php
 require("mn_funciones.php");
@@ -87,7 +184,7 @@ if($consultafac->num_rows<>0){
 
 ?>
 <body>
-<form name='form1' method="post" action="">
+<form name='form1' method="post" action="mn_factura2611.php">
     <div>
         <h4>Gestión de Rips</h4>
     </div>
@@ -95,10 +192,11 @@ if($consultafac->num_rows<>0){
     <br><span class="form-el"><b>Nombre: </b><?php echo $nombre;?></span>
     <br><span class="form-el"><b>Fecha de la factura: </b> <?php echo $fecha_fac;?></span>
     <br><span class="form-el"><b>Número de la factura: </b> <?php echo $numero_fac;?></span>
-    <br><span class="form-el"><b>Eps:</b> <?php echo $nombre_eps;?></span>
-
+    <br><span class="form-el"><b>Eps:</b> <?php echo $nombre_eps;?></span>    
     <?php
     require("mn_menu_rips.php");
+
+    echo "<span class='h5'>Usuario</span>";
     
     $consultausu="SELECT usu.id_usuario,usu.tipo_documento ,usu.numdocumento,usu.tipousuario,usu.fechanacimiento,usu.codsexo,usu.codpaisresidencia,usu.codmunicipioresidencia,usu.codzonaresidencia,usu.incapacidad,usu.codpaisorigen,usu.id_factura
     FROM nrusuario AS usu 
@@ -107,9 +205,8 @@ if($consultafac->num_rows<>0){
     $consultausu=$link->query($consultausu);
     if($consultausu->num_rows<>0){
         $rowusu=$consultausu->fetch_array();
-        echo "<input type='text' name='id_usuario' value='$rowusu[id_usuario]'>";
-        ?>
-        <br><br>
+        echo "<input type='hidden' name='id_usuario' value='$rowusu[id_usuario]'>";
+        ?>        
         <center>
         <table class="Tbl1" border="0">
             <tr>
@@ -216,28 +313,20 @@ if($consultafac->num_rows<>0){
                     <script language='javascript'>activasel('incapacidad','<?php echo $rowusu['incapacidad'];?>');</script>
                 </td>        
             </tr>
-            <!--<tr>
-                <td class="Td2" align='right' width='50%'><b>Pais de origen:</td>
+            <tr>
+                <td class="Td2" align='right' width='50%'><b>Código del país de origen:</td>                
                 <td class="Td2" align='left' width='50%'>
-                    <?php
-                        /*$consultades=mysql_query("SELECT codigo,nombre FROM pais ORDER BY nombre");
-                        echo "<select name='codpaisorigen' disabled>";
-                        while($rowdes=mysql_fetch_array($consultades)){
-                            echo "<option value='$rowdes[codigo]'>$rowdes[nombre] ";
-                        }
-                        echo "</select>";	*/
-                    ?>
-                    <script language='javascript'>activasel('codpaisorigen','<?php //echo $rowcon[codpaisresidencia];?>');</script>
-                </td>        
+                    <input type='text' name='codpaisorigen' size='3' maxlength='3' value='<?php echo $rowusu['codpaisorigen'];?>' disabled>
+                </td>                       
             </tr>
             <tr>
                 <td class="Td6" align='right' width='50%'>
-                    <center><a href='#' onclick='activar()' title="Editar"><img src='icons/feed_edit.png' width='20' height='20'>Editar</a></center>
+                    <center><a href='#' onclick='activar()' title="Editar"><span class='icon-edit'></span> Editar</a></center>
                 </td>
                 <td class="Td6" align='left' width='50%'>
-                    <center><a href='#' onclick='validar()' title="Guardar"><img src='icons/feed_disk.png' width='20' height='20'>Guardar</a></center>
+                    <center><a href='#' onclick='validar()' title="Guardar"><span class='icon-save'></span> Guardar</a></center>
                 </td>
-            </tr>-->
+            </tr>
         </table>
         </center>
         <?php

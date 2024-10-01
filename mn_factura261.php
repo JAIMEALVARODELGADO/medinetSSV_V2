@@ -138,30 +138,6 @@ require("mn_funciones.php");
 require("mn_menu.php");
 $link=conectarbd();
 
-
-//Aqui consulto el numero consecutivo de la factura
-/*$consultanum="SELECT numero_fac FROM entidad";
-$consultanum=$link->query($consultanum);
-if($consultanum->num_rows<>0){
-    $rownum=$consultanum->fetch_array();
-    $numero_fac=$rownum['numero_fac'];
-    //Aqui actualizo el nuevo numero de la factura
-    $sql_="UPDATE entidad SET numero_fac=$numero_fac+1";
-    //echo "<br>".$sql_;
-    //$link->query($sql_);
-
-    //Aqui actualizo el estado de la factura y le coloco el numero 
-    $sql_="UPDATE encabezado_factura SET estado_fac='C',numero_fac='$numero_fac' WHERE id_factura='$id_factura'";
-    //echo "<br>".$sql_;
-    //$link->query($sql_);
-    //generarRips($id_factura);
-    if($link->affected_rows > 0){
-        $msg="Registro guardado con exito";
-        generarRips($id_factura);
-    }
-    else{$msg="Registro no guardado";}
-}*/
-
 //Aqui consulto la factura
 $consultafac = "select ef.id_factura , ef.numero_fac ,ef.numero_fac,ef.fecha_fac ,
 p.identificacion , concat(p.pnombre,' ',p.snombre,' ',p.papellido,' ',p.sapellido) as nombre,
@@ -332,24 +308,9 @@ if($consultafac->num_rows<>0){
         <?php
     }
 
-
-
-
-
-    
-
-
-    /*mysql_free_result($consulta);
-    mysql_free_result($consultacon);
-    mysql_close();*/
     ?>    
 
     <br><br>
-
-
-    
-
-
 
 </form>
 </body>

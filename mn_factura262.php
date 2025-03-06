@@ -27,14 +27,12 @@ if(!empty($id_factura)){
         <title>Medinet</title>
     </head>
     <script language="JavaScript">
-        function continuar(msg_){
-            //alert(msg_);
+        /*function continuar(msg_){            
             document.form1.submit();
         }
 
         function activasel(var_,val_){
-            var comando="form1."+var_+".value='"+val_+"'";
-            //alert(comando);
+            var comando="form1."+var_+".value='"+val_+"'";            
             eval(comando);
         }
 
@@ -104,9 +102,9 @@ if(!empty($id_factura)){
                 activartodos();
                 form1.submit();
             }
-        }
+        }*/
 
-        function activartodos(){            
+        /*function activartodos(){            
             var i=0,comando='';
             for(i=0;i<cont_;i++){    
                 comando="form1.numautorizacion"+i+".disabled=false";                
@@ -133,21 +131,18 @@ if(!empty($id_factura)){
                 eval(comando);
                 comando="form1.vrservicio"+i+".disabled=false";
                 eval(comando);*/
-            }
-        }
+           /* }
+        }*/
 
-        function eliminar(tipo_,reg_){
+        /*function eliminar(tipo_,reg_){
             var url_='';
             if(confirm("Desea eliminar este servicio?")){
                 //url_="fac_3borrarips.php?reg="+reg_+"&tipo="+tipo_;
                 url_="mn_factura2632.php?reg="+reg_+"&tipo="+tipo_;
                 //window.open(url_);
-                window.location.href = url_;
-
-
-                
+                window.location.href = url_;                
             }
-        }
+        }*/
 
 
     </script>
@@ -174,9 +169,8 @@ if($consultafac->num_rows<>0){
     $numero_fac=$rowfac['numero_fac'];
     $nombre_eps=$rowfac['nombre_eps'];
 }
-   
-
 ?>
+
 <body>
 <form name='form1' method="post" action="mn_factura2631.php">
     <div>
@@ -190,79 +184,168 @@ if($consultafac->num_rows<>0){
     <?php
     require("mn_menu_rips.php");
 
-    echo "<span class='h5'>Otros Servicios</span>";
+    echo "<span class='h5'>Consultas</span>";
 
     ?>
     <table class="Tbl0" border='1'>
         <th class="Th0"colspan='2'><b>Sel</th>
+        <th class="Th0"><b>Fecha Aten.</th>
         <th class="Th0"><b>Autorización</th>
-        <th class="Th0"><b>MIPRES</th>
-        <th class="Th0"><b>Fecha Suministro</th>
-        <th class="Th0"><b>Tipo</th>
-        <th class="Th0"><b>Código</th>
-        <th class="Th0"><b>Nombre</th>
-        <th class="Th0"><b>Cantidad</th>
-        <th class="Th0"><b>Valor Unitario</th>  
-        <th class="Th0"><b>Valor Total</th>  
+        <th class="Th0"><b>Código Cons.</th>
+        <th class="Th0"><b>Modalidad</th>
+        <th class="Th0"><b>Grupo</th>
+        <th class="Th0"><b>Cod. Servicio</th>
+        <th class="Th0"><b>Finalidad</th>
+        <th class="Th0"><b>Motivo de Atención</th>  
+        <th class="Th0"><b>Dx. Principal</th>  
+        <th class="Th0"><b>Tipo Dx.</th>
+        <th class="Th0"><b>Dx.Relacionado</th>
+        <th class="Th0"><b>Valor</th>
         <th class="Th0"><b>Concepto Recaudo</th>
         <th class="Th0"><b>Vr. Moderador</th>
         <th class="Th0"><b>FEV Moderador</th>
         <?php
         $cont=0;
         $total=0;
-        $consultacon="SELECT otr.id_otroservicio,otr.numautorizacion,otr.idmipres,otr.fechasuministrotecnologia,otr.tipoos,otr.codtecnologia,otr.nomtecnologia,otr.cantidados,otr.tipodocumentoidentificacion,otr.numdocumentoidentificacion,otr.vrunitos,otr.vrservicio,otr.conceptorecaudo,otr.valorpagomoderador,otr.numfevpagomoderador,otr.consecutivo,otr.id_factura,otr.id_detalle 
-        FROM nrotroservicios AS otr
-        WHERE otr.id_factura='$_SESSION[gid_factura]'";
+        $consultacon="SELECT con.id_consulta,con.fechainicioatencion,con.numautorizacion,con.codconsulta,con.modalidadgruposervicio,con.gruposervicio,con.codservicio,con.finalidadtecnologiasalud,con.causamotivoatencion,con.coddiagnosticoprincipal,con.coddiagnosticorelacionado1,con.coddiagnosticorelacionado2,con.coddiagnosticorelacionado3,con.tipodiagnosticoprincipal,con.vrservicio,con.conceptorecaudo,con.valorpagomoderador,con.numfevpagomoderador,con.consecutivo,con.id_factura,con.id_detalle
+        FROM nrconsulta AS con
+        WHERE con.id_factura='$_SESSION[gid_factura]'";
         //echo $consultacon;
         $consultacon=$link->query($consultacon);
 
         while($rowcon=$consultacon->fetch_array()){
-            $nomvar="id_otroservicio".$cont;
-            echo "<input type='hidden' name='$nomvar' value='$rowcon[id_otroservicio]'>";
+            $nomvar="id_consulta".$cont;
+            echo "<input type='hidden' name='$nomvar' value='$rowcon[id_consulta]'>";
             echo "<tr>";
             $nomvar="chk".$cont;
             echo "<td class='Td2' align='left'><input type='checkbox' name='$nomvar' onclick='activar($cont)'></td>";
             echo "<td class='Td2' align='left'><a href='#' onclick=eliminar('O','$rowcon[id_otroservicio]') title='Eliminar Registro'><span class='icon-trash'></span></a></td>";
 
-            $nomvar="numautorizacion".$cont;
+            $nomvar="fechainicioatencion".$cont;
             echo "<td class='Td2' align='center'><input type='text' name='$nomvar' size='30' maxlength='30' value='$rowcon[numautorizacion]' disabled></td>";
 
-            $nomvar="idmipres".$cont;
-            echo "<td class='Td2' align='center'><input type='text' name='$nomvar' size='15' maxlength='15' value='$rowcon[idmipres]' disabled></td>";
+            $nomvar="numautorizacion".$cont;
+            echo "<td class='Td2' align='center'><input type='text' name='$nomvar' size='15' maxlength='15' value='$rowcon[codconsulta]' disabled></td>";
             
-            $nomvar="fechasuministrotecnologia".$cont;
+            $nomvar="codconsulta".$cont;
             echo "<td class='Td2' align='center'><input type='text' name='$nomvar' size='16' maxlength='16' value='$rowcon[fechasuministrotecnologia]' disabled></td>";
 
             $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
                 from detalle_grupo dg 
                 where dg.id_grupo ='6'");
-            $nomvar="tipoos".$cont;
+            $nomvar="modalidadgruposervicio".$cont;
             echo "<td class='Td2' align='center'>
             <select name='$nomvar' disabled='true'>";
             while($rowdes=$consultades->fetch_array()){                
                 echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
             }
             echo "</select>";
-            $tipops=$rowcon['tipoos'];
+
+            $modalidadgruposervicio=$rowcon['modalidadgruposervicio'];
             ?>
-            <script language='javascript'>activasel('<?php echo $nomvar;?>','<?php echo $tipops;?>');</script>
+            <script language='javascript'>activasel('<?php echo $nomvar;?>','<?php echo $modalidadgruposervicio;?>');</script>
+            <?php
+            echo "</td>";            
+                        
+            $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                from detalle_grupo dg 
+                where dg.id_grupo ='6'");
+
+            $nomvar="gruposervicio".$cont;
+            echo "<td class='Td2' align='center'>
+            <select name='$nomvar' disabled='true'>";
+            while($rowdes=$consultades->fetch_array()){                
+                echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+            }
+            echo "</select>";
+
+            $gruposervicio=$rowcon['gruposervicio'];
+            ?>
+            <script language='javascript'>activasel('<?php echo $nomvar;?>','<?php echo $modalidadgruposervicio;?>');</script>
+            <?php
+            echo "</td>";                        
+
+            $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                from detalle_grupo dg 
+                where dg.id_grupo ='6'");
+            $nomvar="codservicio".$cont;
+            echo "<td class='Td2' align='center'>
+            <select name='$nomvar' disabled='true'>";
+            while($rowdes=$consultades->fetch_array()){                
+                echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+            }
+            echo "</select>";
+
+            $codservicio=$rowcon['codservicio'];
+            ?>
+            <script language='javascript'>activasel('<?php echo $nomvar;?>','<?php echo $codservicio;?>');</script>
             <?php
             echo "</td>";
 
-            $nomvar="codtecnologia".$cont;
-            echo "<td class='Td2' align='center'><input type='text' name='$nomvar' size='20' maxlength='20' value='$rowcon[codtecnologia]' disabled></td>";
 
-            $nomvar="nomtecnologia".$cont;
-            echo "<td class='Td2' align='center'><input type='text' name='$nomvar' size='60' maxlength='60' value='$rowcon[nomtecnologia]' disabled></td>";
+            $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                from detalle_grupo dg 
+                where dg.id_grupo ='6'");
+            $nomvar="finalidadtecnologiasalud".$cont;
+            echo "<td class='Td2' align='center'>
+            <select name='$nomvar' disabled='true'>";
+            while($rowdes=$consultades->fetch_array()){                
+                echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+            }
+            echo "</select>";
 
-            $nomvar="cantidados".$cont;
-            echo "<td class='Td2' align='center'><input type='text' name='$nomvar' size='5' maxlength='5' value='$rowcon[cantidados]' disabled></td>";
+            $finalidadtecnologiasalud=$rowcon['finalidadtecnologiasalud'];
+            ?>
+            <script language='javascript'>activasel('<?php echo $nomvar;?>','<?php echo $finalidadtecnologiasalud;?>');</script>
+            <?php
+            echo "</td>";
 
-            $nomvar="vrunitos".$cont;
-            echo "<td class='Td2' align='right'><input type='text' name='$nomvar' size='15' maxlength='15' value='".number_format($rowcon['vrunitos'])."' disabled></td>";
+            $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                from detalle_grupo dg 
+                where dg.id_grupo ='6'");
+            $nomvar="causamotivoatencion".$cont;
+            echo "<td class='Td2' align='center'>
+            <select name='$nomvar' disabled='true'>";
+            while($rowdes=$consultades->fetch_array()){                
+                echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+            }
+            echo "</select>";
 
+            $causamotivoatencion=$rowcon['causamotivoatencion'];
+            ?>
+            <script language='javascript'>activasel('<?php echo $nomvar;?>','<?php echo $causamotivoatencion;?>');</script>
+            <?php
+            echo "</td>";            
+            $nomvar="coddiagnosticoprincipal".$cont;
+            echo "<td class='Td2' align='center'>
+            <input type='text' name='$nomvar' size='4' maxlength='4' value='$rowcon[coddiagnosticoprincipal]' disabled>";
+            $nomvar="coddiagnosticorelacionado1".$cont;
+            echo "<br><input type='text' name='$nomvar' size='4' maxlength='4' value='$rowcon[coddiagnosticorelacionado1]' disabled>";
+            $nomvar="coddiagnosticorelacionado2".$cont;
+            echo "<br><input type='text' name='$nomvar' size='4' maxlength='4' value='$rowcon[coddiagnosticorelacionado2]' disabled>";
+            $nomvar="coddiagnosticorelacionado3".$cont;
+            echo "<br><input type='text' name='$nomvar' size='4' maxlength='4' value='$rowcon[coddiagnosticorelacionado3]' disabled>
+            </td>";            
+
+            $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                from detalle_grupo dg 
+                where dg.id_grupo ='6'");
+            $nomvar="tipodiagnosticoprincipal".$cont;
+            echo "<td class='Td2' align='center'>
+            <select name='$nomvar' disabled='true'>";
+            while($rowdes=$consultades->fetch_array()){                
+                echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+            }
+            echo "</select>";
+
+            $tipodiagnosticoprincipal=$rowcon['tipodiagnosticoprincipal'];
+            ?>
+            <script language='javascript'>activasel('<?php echo $nomvar;?>','<?php echo $tipodiagnosticoprincipal;?>');</script>
+            <?php
+            echo "</td>";
+            
             $nomvar="vrservicio".$cont;
-            echo "<td class='Td2' align='right'><input type='text' name='$nomvar' size='15' maxlength='15' value='".number_format($rowcon['vrservicio'])."' disabled></td>";
+            echo "<td class='Td2' align='right'><input type='text' name='$nomvar' size='10' maxlength='10' value='".number_format($rowcon['vrservicio'])."' disabled></td>";
 
             $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
                 from detalle_grupo dg 
@@ -282,7 +365,7 @@ if($consultafac->num_rows<>0){
 
             $nomvar="valorpagomoderador".$cont;
             echo "<td class='Td2' align='right'><input type='text' name='$nomvar' size='10' maxlength='10' value='".number_format($rowcon['valorpagomoderador'])."' disabled></td>";
-
+            
             $nomvar="numfevpagomoderador".$cont;
             echo "<td class='Td2' align='center'><input type='text' name='$nomvar' size='15' maxlength='20' value='$rowcon[numfevpagomoderador]' disabled></td>";
 
@@ -302,6 +385,47 @@ if($consultafac->num_rows<>0){
         <center><a href='#' onclick='validar(<?php echo $cont;?>)'><span class='icon-save'></span>Guardar</a></center>
         </div>
         <input type='hidden' name='cont' value='<?php echo $cont-1;?>'>
+
+        <div class="cajaInput">
+            <div class="cajaTitulo">
+                <cemter><h5>Nueva Consulta</h5></cemter>
+            </div>
+            
+            <div class="cajaContenido">
+                <br><span>Fecha de Atención:</span>
+                <input type="text" name="fechainicioatencion" size="10" maxlength="10">
+                <br><span>Número de Autrización:</span>
+                <input type="text" name="numautorizacion" size="30" maxlength="30">
+                <br><span>Código de la Consulta:</span>
+                <input type="text" name="codconsulta" size="6" maxlength="6">
+                <br><span>Modalidad:</span>
+                <select name="modalidadgruposervicio">
+                    <option value="0">Seleccione</option>
+                    <?php
+                    $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                        from detalle_grupo dg 
+                        where dg.id_grupo ='8'");
+                    while($rowdes=$consultades->fetch_array()){                
+                        echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+                    }
+                    ?>
+                </select>
+                <br><span>Grupo de Servicio:</span>
+                <select name="gruposervicio">
+                    <option value="0">Seleccione</option>
+                    <?php
+                    $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                        from detalle_grupo dg 
+                        where dg.id_grupo ='9'");
+                    while($rowdes=$consultades->fetch_array()){                
+                        echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+                    }
+                    ?>
+
+
+
+            </div>                
+        </div>
 
 </form>
 </body>

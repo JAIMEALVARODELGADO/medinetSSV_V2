@@ -212,6 +212,7 @@ if(!empty($condicion)){
     }
     echo "</table>";
 }
+
 ?>
 <script language="JavaScript">
     document.form1.orden.value='<?php echo $orden;?>';

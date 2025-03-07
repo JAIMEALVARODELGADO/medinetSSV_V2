@@ -1,5 +1,9 @@
-body{
-    /*display: flex;*/
+html, body {
+    height: 100%; /* Se asegura que ocupen todo el viewport */
+    margin: 0;
+}
+
+body{    
     justify-content: center;
     align-items: center;
     background: #E8EEE7;
@@ -7,6 +11,7 @@ body{
     font-family: Arial,Helvetica,sans-serif,"Myriad Pro";
     font-size:14px;
     margin: 0px 0px 1px 1px;
+    overflow: auto;    
 }
 
 
@@ -488,21 +493,21 @@ div#controlado{
 div#body{
     margin-top: 20px;
     width: 640px;
-    height: 580px;
+    /*height: 580px;*/
     background-color: purple;
 }
 
 .cajaInput{
-    position: fixed;
+    position: absolute;
     top: 10%;
     left: 25%;
     width: 50%;
-    /*height: 30px;*/
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 7px;
     border: solid 1px #98B998;
     border-radius: 5px;
     background-color: #f2f6f2;
+    display: none;
 }
 
 .cajaTitulo{

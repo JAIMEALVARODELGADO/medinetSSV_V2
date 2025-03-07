@@ -136,16 +136,13 @@ if(!empty($id_factura)){
             }
         }
 
-        function eliminar(tipo_,reg_){
+        function eliminar_(tipo_,reg_){
             var url_='';
             if(confirm("Desea eliminar este servicio?")){
                 //url_="fac_3borrarips.php?reg="+reg_+"&tipo="+tipo_;
                 url_="mn_factura2632.php?reg="+reg_+"&tipo="+tipo_;
                 //window.open(url_);
-                window.location.href = url_;
-
-
-                
+                window.location.href = url_;                
             }
         }
 

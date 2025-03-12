@@ -2,8 +2,6 @@
 require("mn_funciones.php");
 $link=conectarbd();
 
-echo "ya llegue";
-
 $numautorizacion = $_POST['numautorizacion'];
 $idmipres = $_POST['idmipres'];
 $fechasuministrotecnologia = $_POST['fechasuministrotecnologia'];
@@ -16,55 +14,66 @@ $conceptorecaudo = $_POST['conceptorecaudo'];
 $valorpagomoderador = $_POST['valorpagomoderador'];
 $numfevpagomoderador = $_POST['numfevpagomoderador'];
 $id_factura = $_POST['id_factura'];
+$vrservicio = $vrunitos*$cantidados;
 
-echo "<br>".$numautorizacion;
-echo "<br>".$idmipres;
-echo "<br>".$fechasuministrotecnologia;
-echo "<br>".$tipoos;
-echo "<br>".$codtecnologia;
-echo "<br>".$nomtecnologia;
-echo "<br>".$cantidados;
-echo "<br>".$vrunitos;
-echo "<br>".$conceptorecaudo;
-echo "<br>".$valorpagomoderador;
-echo "<br>".$numfevpagomoderador;
-echo "<br>".$id_factura;
+$consultausu="SELECT u.tipo_documento, u.numdocumento FROM nrusuario u WHERE id_factura='$id_factura'";
+$consultausu=$link->query($consultausu);
+if($consultausu->num_rows<>0){
+    $row=$consultausu->fetch_array();
+    $tipodocumentoidentificacion = $row['tipo_documento'];
+    $numdocumentoidentificacion = $row['numdocumento'];
+}
 
-/*for($i=0; $i <= $cont ;$i++){
-    $id_otroservicio = $_POST['id_otroservicio'.$i];    
-    $numautorizacion = $_POST['numautorizacion'.$i];
-    $idmipres = $_POST['idmipres'.$i];
-    $fechasuministrotecnologia = $_POST['fechasuministrotecnologia'.$i];
-    $tipoos = $_POST['tipoos'.$i];
-    $codtecnologia = $_POST['codtecnologia'.$i]; 
-    $nomtecnologia = $_POST['nomtecnologia'.$i];
-    //$cantidados = $_POST['cantidados'.$i];
-    //$vrunitos = $_POST['vrunitos'.$i];
-    //$vrservicio = $_POST['vrservicio'.$i];
-    $conceptorecaudo = $_POST['conceptorecaudo'.$i];
-    $valorpagomoderador = $_POST['valorpagomoderador'.$i];
-    $numfevpagomoderador = $_POST['numfevpagomoderador'.$i];
+$consultaotr="SELECT COUNT(*) as consecutivo FROM nrotroservicios n 
+where n.id_factura ='id_factura'";
+$consultaotr=$link->query($consultaotr);
+$rowotr=$consultaotr->fetch_array();
+$consecutivo = $rowotr['consecutivo']+1;
 
-    $sql="UPDATE nrotroservicios SET
-    id_otroservicio = '$id_otroservicio',
-    numautorizacion = '$numautorizacion',
-    idmipres = '$idmipres',
-    fechasuministrotecnologia = '$fechasuministrotecnologia',
-    tipoos = '$tipoos',
-    codtecnologia = '$codtecnologia',
-    nomtecnologia = '$nomtecnologia',    
-    conceptorecaudo = '$conceptorecaudo',
-    valorpagomoderador = '$valorpagomoderador',
-    numfevpagomoderador = '$numfevpagomoderador'
-    WHERE id_otroservicio = '$id_otroservicio'";
+$sql="INSERT INTO nrotroservicios(
+numautorizacion,
+idmipres,
+fechasuministrotecnologia,
+tipoos,
+codtecnologia,
+nomtecnologia,
+cantidados,
+tipodocumentoidentificacion,
+numdocumentoidentificacion,
+vrunitos,
+vrservicio,
+conceptorecaudo,
+valorpagomoderador,
+numfevpagomoderador,
+consecutivo,
+id_factura)
+VALUES(     
+'$numautorizacion',
+'$idmipres',
+'$fechasuministrotecnologia',
+'$tipoos',
+'$codtecnologia',
+'$nomtecnologia',    
+'$cantidados',    
+'$tipodocumentoidentificacion',
+'$numdocumentoidentificacion',
+'$vrunitos',
+'$vrservicio',
+'$conceptorecaudo',
+'$valorpagomoderador',
+'$numfevpagomoderador',
+'$consecutivo',
+'$id_factura')";
+//echo $sql;
 
-    $link->query($sql);
+$link->query($sql);
 
-    if($link->affected_rows > 0){
-        $msg="Registro guardado con exito";
-    }
-    else{$msg="Registro no guardado";}
+if($link->affected_rows > 0){
+    echo 1;
+}
+else{
+    echo 0;
+}
 
     
-}*/
 ?>

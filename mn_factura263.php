@@ -29,12 +29,18 @@ if(!empty($id_factura)){
     </head>
     <script language="JavaScript">
 
+        otrosServicios=[];
+
         function nuevoServicio(){            
             document.getElementById('nuevoServicio').style.display='block';
         }
 
         function cerrar(){
             document.getElementById('nuevoServicio').style.display='none';
+        }
+
+        function cerrarEdicion(){
+            document.getElementById('editarServicio').style.display='none';
         }
         
         function validar(){
@@ -54,27 +60,15 @@ if(!empty($id_factura)){
             if(document.form1.conceptorecaudo.value==''){
                 error+='Concepto del recaudo\n';
             }
-            /*if(error!=''){
+            if(error!=''){
                 alert("Para guardar debe complementar la siguiente información:\n\n"+error);
             }
-            else{                */
+            else{
                 guardarServicio();                
-            //}
+            }
         }
 
-        function guardarServicio(){
-            /*alert(document.form1.numautorizacion.value);
-            alert(document.form1.idmipres.value);
-            alert(document.form1.fechasuministrotecnologia.value);
-            alert(document.form1.tipoos.value);
-            alert(document.form1.codtecnologia.value);
-            alert(document.form1.nomtecnologia.value);
-            alert(document.form1.cantidados.value);                        
-            alert(document.form1.vrunitos.value);                
-            alert(document.form1.conceptorecaudo.value);
-            alert(document.form1.conceptorecaudo.value);
-            alert(document.form1.numfevpagomoderador.value);*/
-            
+        function guardarServicio(){            
             $.ajax({
                 url: "mn_factura2631.php", // Ruta al archivo PHP
                 type: "POST",       // Método HTTP (puede ser "GET" o "POST")
@@ -88,7 +82,7 @@ if(!empty($id_factura)){
                     cantidados: document.form1.cantidados.value,
                     vrunitos: document.form1.vrunitos.value,                    
                     conceptorecaudo: document.form1.conceptorecaudo.value,
-                    valorpagomoderador: document.form1.conceptorecaudo.value,
+                    valorpagomoderador: document.form1.valorpagomoderador.value,
                     numfevpagomoderador: document.form1.numfevpagomoderador.value,                    
                     id_factura: <?php echo $_SESSION['gid_factura']; ?>            
                 },
@@ -107,6 +101,89 @@ if(!empty($id_factura)){
                 }
             });
         }
+
+        function editarServicio(id_servicio){            
+            
+            document.getElementById('editarServicio').style.display='block';
+            for (let servicio of otrosServicios) {
+                if(servicio.id_otroservicio == id_servicio){                    
+                    document.getElementById("id_otroservicio").value = servicio.id_otroservicio;
+                    document.getElementById("numautorizacionEd").value = servicio.numautorizacion;
+                    document.getElementById("idmipresEd").value = servicio.idmipres
+                    document.getElementById("fechasuministrotecnologiaEd").value = servicio.fechasuministrotecnologia;
+                    document.getElementById("tipoosEd").value = servicio.tipoos;
+                    document.getElementById("codtecnologiaEd").value = servicio.codtecnologia;
+                    document.getElementById("nomtecnologiaEd").value = servicio.nomtecnologia;
+                    document.getElementById("cantidadosEd").value = servicio.cantidados;
+                    document.getElementById("vrunitosEd").value = servicio.vrunitos;
+                    document.getElementById("conceptorecaudoEd").value = servicio.conceptorecaudo;
+                    document.getElementById("valorpagomoderadorEd").value = servicio.valorpagomoderador;
+                    document.getElementById("numfevpagomoderadorEd").value = servicio.numfevpagomoderador;
+                }
+            }
+
+        }
+
+        function validarEdicion(){
+            error='';
+            if(document.getElementById("fechasuministrotecnologiaEd").value == ''){
+                error+='Fecha de Suministro\n';
+            }
+            if(document.getElementById("tipoosEd").value==''){
+                error+='Tipo\n';
+            }
+            if(document.getElementById("codtecnologiaEd").value==''){
+                error+='Código del servicio\n';
+            }
+            if(document.getElementById("nomtecnologiaEd").value==''){
+                error+='Nombre del servicio\n';
+            }
+            if(document.getElementById("conceptorecaudoEd").value==''){
+                error+='Concepto del recaudo\n';
+            }
+            if(error!=''){
+                alert("Para guardar debe complementar la siguiente información:\n\n"+error);
+            }
+            else{
+                guardarEdicionServicio();
+            }
+        }
+
+        function guardarEdicionServicio(){            
+            $.ajax({
+                url: "mn_factura2632.php", // Ruta al archivo PHP
+                type: "POST",       // Método HTTP (puede ser "GET" o "POST")
+                data: {             // Datos que se envían al script PHP
+                    id_otroservicio: document.getElementById("id_otroservicio").value,
+                    numautorizacion: document.getElementById("numautorizacionEd").value,
+                    idmipres: document.getElementById("idmipresEd").value,
+                    fechasuministrotecnologia: document.getElementById("fechasuministrotecnologiaEd").value,
+                    tipoos: document.getElementById("tipoosEd").value,
+                    codtecnologia: document.getElementById("codtecnologiaEd").value,
+                    nomtecnologia: document.getElementById("nomtecnologiaEd").value,
+                    cantidados: document.getElementById("cantidadosEd").value,
+                    vrunitos: document.getElementById("vrunitosEd").value,
+                    conceptorecaudo: document.getElementById("conceptorecaudoEd").value,
+                    valorpagomoderador: document.getElementById("valorpagomoderadorEd").value,
+                    numfevpagomoderador: document.getElementById("numfevpagomoderadorEd").value
+                },
+                success: function(respuesta) {
+                    document.getElementById('editarServicio').style.display='none';
+                    if(respuesta==1){
+                        alert("Registro guardado con éxito");
+                        document.form1.submit();
+                    }
+                    else{
+                        alert("Ocurrió un error al guardar el registro");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Ocurrió un error: " + error);
+                }
+            });
+        }
+
+
 
         /*function eliminar_(tipo_,reg_){
             var url_='';
@@ -184,11 +261,10 @@ if($consultafac->num_rows<>0){
         //echo $consultacon;
         $consultacon=$link->query($consultacon);
 
-        while($rowcon=$consultacon->fetch_array()){
-            //echo "<input type='hidden' name='id_otroservicio' value='$rowcon[id_otroservicio]'>";
+        while($rowcon=$consultacon->fetch_array()){            
             echo "<tr>";
             
-            echo "<td class='Td2' align='left'></td>";
+            echo "<td class='Td2' align='left'><a href='#' onclick='editarServicio($rowcon[id_otroservicio])' title='Editar Registro'><span class='icon-open-book'></span></a></td>";
             echo "<td class='Td2' align='left'><a href='#' onclick=eliminar('$rowcon[id_otroservicio]') title='Eliminar Registro'><span class='icon-trash'></span></a></td>";
             
             echo "<td class='Td2' align='center'>$rowcon[numautorizacion]</td>";            
@@ -282,7 +358,69 @@ if($consultafac->num_rows<>0){
 
             <br><center>
                 <a href='#' onclick='validar()'><span class='icon-save'></span>Guardar</a>
-                <a href='#' onclick='cerrar()'><span class='icon-back'></span>Cancelar</a>                    
+                <a href='#' onclick='cerrar()'><span class='icon-back'></span>Cancelar</a>
+            </center>
+
+
+        </div>                
+    </div>
+
+    <div class="cajaInput" id="editarServicio">
+        <div class="cajaTitulo">
+            <cemter><h5>Editar Servicio</h5></cemter>
+        </div>          
+        
+        <div class="cajaContenido">
+            <input type="hidden" name="id_otroservicio" id="id_otroservicio">
+            <br><span>Número de Autrización:</span>
+            <input type="text" name="numautorizacionEd" id="numautorizacionEd" size="30" maxlength="30">
+            <br><span>MIPRES</span>
+            <input type="text" name="idmipresEd" id="idmipresEd" size="11" maxlength="11" value="0">
+            <br><span>Fecha de suministro</span>
+            <input type="datetime-local" name="fechasuministrotecnologiaEd" id="fechasuministrotecnologiaEd" size="16" maxlength="16">
+            <br><span>Tipo de servicio:</span>
+                <select name="tipoosEd" id="tipoosEd">
+                    <option value="">Seleccione</option>
+                    <?php
+                    $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                        from detalle_grupo dg 
+                        where dg.id_grupo ='6'");
+                    while($rowdes=$consultades->fetch_array()){                
+                        echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+                    }
+                    ?>
+                </select>
+            
+            <br><span>Código:</span>
+            <input type="text" name="codtecnologiaEd" id="codtecnologiaEd" size="20" maxlength="20">
+            <br><span>Nombre:</span>
+            <input type="text" name="nomtecnologiaEd" id="nomtecnologiaEd" size="60" maxlength="60">
+            <br><span>Cantidad:</span>
+            <input type="text" name="cantidadosEd" id="cantidadosEd" size="5" maxlength="5" value="0">
+            <br><span>Valor unitario:</span>
+            <input type="text" name="vrunitosEd" id="vrunitosEd" size="15" maxlength="15" value="0">
+
+            <br><span>Concepto de recaudo:</span>
+            <select name="conceptorecaudoEd" id="conceptorecaudoEd">
+                <option value="">Seleccione</option>
+                <?php
+                $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                    from detalle_grupo dg 
+                    where dg.id_grupo ='7'");
+                while($rowdes=$consultades->fetch_array()){                
+                    echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+                }
+                ?>
+            </select>
+            
+            <br><span>Valor Moderador:</span>
+            <input type="text" name="valorpagomoderadorEd" id="valorpagomoderadorEd" size="10" maxlength="10" value="0">
+            <br><span>FEV Moderador:</span>
+            <input type="text" name="numfevpagomoderadorEd" id="numfevpagomoderadorEd" size="20" maxlength="20">
+
+            <br><center>
+                <a href='#' onclick='validarEdicion()'><span class='icon-save'></span>Guardar</a>
+                <a href='#' onclick='cerrarEdicion()'><span class='icon-back'></span>Cancelar</a>
             </center>
 
 
@@ -295,6 +433,31 @@ if($consultafac->num_rows<>0){
 
 
 <?php
+
+$consultacon->data_seek(0);
+while($row = $consultacon->fetch_array()){    
+    ?>
+    <script>
+        servicio={
+            id_otroservicio: '<?php echo $row['id_otroservicio'];?>',
+            numautorizacion: '<?php echo $row['numautorizacion'];?>',
+            idmipres: '<?php echo $row['idmipres'];?>',
+            fechasuministrotecnologia: '<?php echo $row['fechasuministrotecnologia'];?>',
+            tipoos: '<?php echo $row['tipoos'];?>',
+            codtecnologia: '<?php echo $row['codtecnologia'];?>',
+            nomtecnologia: '<?php echo $row['nomtecnologia'];?>',
+            cantidados: '<?php echo $row['cantidados'];?>',
+            vrunitos: '<?php echo $row['vrunitos'];?>',
+            conceptorecaudo: '<?php echo $row['conceptorecaudo'];?>',
+            vrservicio: '<?php echo $row['vrservicio'];?>',
+            valorpagomoderador: '<?php echo $row['valorpagomoderador'];?>',
+            numfevpagomoderador: '<?php echo $row['numfevpagomoderador'];?>'
+        };
+        otrosServicios.push(servicio);
+    </script>
+    <?php
+}
+
 function traeConcepto($val_,$id_grupo){
     $descripcion="";
     $link=conectarbd();

@@ -183,17 +183,29 @@ if(!empty($id_factura)){
             });
         }
 
-
-
-        /*function eliminar_(tipo_,reg_){
-            var url_='';
+        function eliminar(reg_){
             if(confirm("Desea eliminar este servicio?")){
-                //url_="fac_3borrarips.php?reg="+reg_+"&tipo="+tipo_;
-                url_="mn_factura2632.php?reg="+reg_+"&tipo="+tipo_;
-                //window.open(url_);
-                window.location.href = url_;                
+                $.ajax({
+                    url: "mn_factura2633.php", // Ruta al archivo PHP
+                    type: "POST",       // Método HTTP (puede ser "GET" o "POST")
+                    data: {             // Datos que se envían al script PHP
+                        id_otroservicio: reg_,                        
+                    },
+                    success: function(respuesta) {                        
+                        if(respuesta==1){
+                            alert("Registro eliminado con éxito");
+                            document.form1.submit();
+                        }
+                        else{
+                            alert("Ocurrió un error al eliminar el registro");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Ocurrió un error: " + error);
+                    }
+                });
             }
-        }*/
+        }
 
 
     </script>

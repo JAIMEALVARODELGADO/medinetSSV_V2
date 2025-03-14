@@ -27,6 +27,9 @@ session_start();
         function erroreditar(){
             alert("La factura se encuentra cerrada");
         }
+        function errorRips(){
+            alert("La factura se encuentra abierta");
+        }
         function cerrar_fac(id_,total_){
             mensaje="";
             if(total_==0){
@@ -195,7 +198,7 @@ if(!empty($condicion)){
                 echo "<td width='5%'><a href='#' onclick=editarRips_fac($row[id_factura],$row[valor_total]) title='RIPS' class='btnhref'><span class='icon-open-book'></span></a></td>";
             } 
             else{
-                echo "<td width='5%'><a href='#' onclick=erroreditar() title='RIPS' class='btnhref'><span class='icon-open-book'></span></a></td>";
+                echo "<td width='5%'><a href='#' onclick=errorRips() title='RIPS' class='btnhref'><span class='icon-open-book'></span></a></td>";
             }            
 
             echo "<td>$row[tipo_iden]</td>";

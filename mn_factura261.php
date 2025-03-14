@@ -25,114 +25,96 @@ if(!empty($id_factura)){
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <link rel="stylesheet" type="text/css" href="fonts/style.css">
         <title>Medinet</title>
-    </head>
-    <script language="JavaScript">
-        function continuar(msg_){
-            //alert(msg_);
-            document.form1.submit();
-        }
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        function activasel(var_,val_){
-            var comando="form1."+var_+".value='"+val_+"'";
-            //alert(comando);
-            eval(comando);
-        }
+        <script language="JavaScript">
+            function editarUsuario(id_usuario){                        
+                document.getElementById('editarUsuario').style.display='block';
+            }
 
-        function activar(){
-            var comando='';            
-            if(form1.tipodocumento.disabled == true){
-                form1.tipodocumento.disabled=false;}
-            else{
-                form1.tipodocumento.disabled=true;}
-            if(form1.numdocumento.disabled == true){
-                form1.numdocumento.disabled=false;}
-            else{
-                form1.numdocumento.disabled=true;}
-            if(form1.tipousuario.disabled == true){
-                form1.tipousuario.disabled=false;}
-            else{
-                form1.tipousuario.disabled=true;}
-            if(form1.fechanacimiento.disabled == true){
-                form1.fechanacimiento.disabled=false;}
-            else{
-                form1.fechanacimiento.disabled=true;}
-            if(form1.codsexo.disabled == true){
-                form1.codsexo.disabled=false;}
-            else{
-                form1.codsexo.disabled=true;}    
-            if(form1.codpaisresidencia.disabled == true){
-                form1.codpaisresidencia.disabled=false;}
-            else{
-                form1.codpaisresidencia.disabled=true;}
-            if(form1.codmunicipioresidencia.disabled == true){
-                form1.codmunicipioresidencia.disabled=false;}
-            else{
-                form1.codmunicipioresidencia.disabled=true;}
-            if(form1.codzonaresidencia.disabled == true){
-                form1.codzonaresidencia.disabled=false;}
-            else{
-                form1.codzonaresidencia.disabled=true;}
-            if(form1.incapacidad.disabled == true){
-                form1.incapacidad.disabled=false;}
-            else{
-                form1.incapacidad.disabled=true;}
-            if(form1.codpaisorigen.disabled == true){
-                form1.codpaisorigen.disabled=false;}
-            else{
-                form1.codpaisorigen.disabled=true;}
-        }
+            function cerrarEdicion(){
+                document.getElementById('editarUsuario').style.display='none';
+            }
 
-        function validar(cont_){      
-            var comando='',error='';            
-            if(form1.tipodocumento.disabled == false){
-                if(form1.tipodocumento.value==''){
+            function validarEdicion(){
+                var error='';            
+                if(document.getElementById("tipo_documento").value==''){
                     error=error+"Tipo de documento \n";
-                }    
-                if(form1.numdocumento.value==''){        
+                }
+                if(document.getElementById("numdocumento").value==''){
                     error=error+"Número de documento \n";
                 }
-                if(form1.tipousuario.value==''){        
+                if(document.getElementById("tipousuario").value==''){
                     error=error+"Tipo de usuario \n";
                 }
-                if(form1.fechanacimiento.value==''){        
+                if(document.getElementById("fechanacimiento").value==''){
                     error=error+"Fecha de nacimiento \n";
                 }
-                if(form1.codsexo.value==''){        
+                if(document.getElementById("codsexo").value==''){
                     error=error+"Sexo \n";
                 }
-                if(form1.codpaisresidencia.value==''){
+                if(document.getElementById("codpaisresidencia").value==''){
                     error=error+"País de residencia \n";
                 }
-                if(form1.codpaisresidencia.value=='170' && form1.codmunicipioresidencia.value==''){
-                    error=error+"Municipio de residencia \n";        
+                if(document.getElementById("codpaisresidencia").value=='170' && document.getElementById("codmunicipioresidencia").value==''){
+                    error=error+"Municipio de residencia \n";
                 }
-                if(form1.codpaisresidencia.value!='170' && form1.codmunicipioresidencia.value!=''){
-                    form1.codmunicipioresidencia.value='';
+                if(document.getElementById("codpaisresidencia").value!='170' && document.getElementById("codmunicipioresidencia").value!=''){
+                    document.getElementById("codmunicipioresidencia").value='';
                 }
-                if(form1.codzonaresidencia.value==''){
+                if(document.getElementById("codzonaresidencia").value==''){
                     error=error+"Zona de residencia \n";
                 }
-                if(form1.incapacidad.value==''){
+                if(document.getElementById("incapacidad").value==''){
                     error=error+"Incapacidad \n";
                 }
-                if(form1.codpaisorigen.value==''){
+                if(document.getElementById("codpaisorigen").value==''){
                     error=error+"País de origen \n";
                 }
-            }
-            else{
-                error=error+"No hay cambios para guardar... \n";
+
+                if(error!=''){
+                    alert("Para guardar debe complementar la siguiente información:\n\n"+error);
+                }
+                else{
+                    guardarEdicionUsuario()
+                }
             }
 
-
-            if(error!=''){
-                alert("Para guardar debe complementar la siguiente información:\n\n"+error);
+            function guardarEdicionUsuario(){
+                $.ajax({
+                    url: "mn_factura2611.php", // Ruta al archivo PHP
+                    type: "POST",       // Método HTTP (puede ser "GET" o "POST")
+                    data: {             // Datos que se envían al script PHP
+                        id_usuario: document.getElementById("id_usuario").value,
+                        tipo_documento: document.getElementById("tipo_documento").value,
+                        numdocumento: document.getElementById("numdocumento").value,
+                        tipousuario: document.getElementById("tipousuario").value,
+                        fechanacimiento: document.getElementById("fechanacimiento").value,
+                        codsexo: document.getElementById("codsexo").value,
+                        codpaisresidencia: document.getElementById("codpaisresidencia").value,
+                        codmunicipioresidencia: document.getElementById("codmunicipioresidencia").value,
+                        codzonaresidencia: document.getElementById("codzonaresidencia").value,
+                        incapacidad: document.getElementById("incapacidad").value,
+                        codpaisorigen: document.getElementById("codpaisorigen").value
+                    },
+                    success: function(respuesta) {
+                        document.getElementById('editarUsuario').style.display='none';
+                        if(respuesta==1){
+                            alert("Registro guardado con éxito");
+                            document.form1.submit();
+                        }
+                        else{
+                            alert("Ocurrió un error al guardar el registro");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Ocurrió un error: " + error);
+                    }
+                });
             }
-            else{
-                form1.submit();
-            }
-        }
 
-    </script>
+        </script>
+    </head>    
 <?php
 require("mn_funciones.php");
 require("mn_menu.php");
@@ -160,7 +142,7 @@ if($consultafac->num_rows<>0){
 
 ?>
 <body>
-<form name='form1' method="post" action="mn_factura2611.php">
+<form name='form1' method="post" action="mn_factura261.php">
     <div>
         <h4>Gestión de Rips</h4>
     </div>
@@ -172,147 +154,178 @@ if($consultafac->num_rows<>0){
     <?php
     require("mn_menu_rips.php");
 
-    echo "<span class='h5'>Usuario</span>";
+    echo "<span class='h5'>Usuario</span>";    
+    ?>
+
+    <table class="Tbl0" border='1'>
+    <th class="Th0"colspan='2'><b>Sel</th>
+    <th class="Th0"><b>Tp Ident.</th>
+    <th class="Th0"><b>Número</th>
+    <th class="Th0"><b>Tipo de Usuaario</th>
+    <th class="Th0"><b>Fecha de Nacimiento</th>
+    <th class="Th0"><b>Sexo</th>
+    <th class="Th0"><b>Cód. Pais Residencia</th>
+    <th class="Th0"><b>Municipio de Residencia</th>
+    <th class="Th0"><b>Zona de Residencia</th>  
+    <th class="Th0"><b>Incapacidad</th>  
+    <th class="Th0"><b>Código Paid Origen</th>        
+    <?php
     
-    $consultausu="SELECT usu.id_usuario,usu.tipo_documento ,usu.numdocumento,usu.tipousuario,usu.fechanacimiento,usu.codsexo,usu.codpaisresidencia,usu.codmunicipioresidencia,usu.codzonaresidencia,usu.incapacidad,usu.codpaisorigen,usu.id_factura
+    $consultausu="SELECT usu.id_usuario,usu.tipo_documento ,usu.numdocumento,usu.tipousuario,usu.fechanacimiento,usu.codsexo,usu.codpaisresidencia,usu.codmunicipioresidencia,usu.codzonaresidencia,usu.incapacidad,usu.codpaisorigen,usu.id_factura,
+    mun.nombre_mun
     FROM nrusuario AS usu 
+    LEFT JOIN municipio mun ON mun.codigo_mun=usu.codmunicipioresidencia
     WHERE usu.id_factura='$_SESSION[gid_factura]'";
     //echo $consultausu;
-    $consultausu=$link->query($consultausu);
-    if($consultausu->num_rows<>0){
-        $rowusu=$consultausu->fetch_array();
-        echo "<input type='hidden' name='id_usuario' value='$rowusu[id_usuario]'>";
-        ?>        
-        <center>
-        <table class="Tbl1" border="0">
-            <tr>
-                <td class="Td1" align='right' width='50%'>
-                
-                </td>
-                <td class="Td" align='left' width='50%'>
-                
-                </td>
-            </tr>
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Tipo de documento de identificación:</td>
-                <td class="Td2" align='left' width='50%'>
-                    <select name='tipodocumento' disabled>
-                    <option value=''></option>
-                    <option value='CC'>CC</option>
-                    <option value='CE'>CE</option>
-                    <option value='PA'>PA</option> 
-                    </select>                
-                    
-                    <script language='javascript'>activasel('tipodocumento','<?php echo $rowusu['tipo_documento'];?>');</script>
-                </td>        
-            </tr>
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Número:</td>
-                <td class="Td2" align='left' width='50%'>
-                    <input type='text' name='numdocumento' size='20' maxlength='20' value='<?php echo $rowusu['numdocumento'];?>' disabled>
-                </td>
-            </tr>
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Tipo de usuario:</td>
-                <td class="Td2" align='left' width='50%'>
-                    <?php
-                        $consultapar="select valor_det ,descripcion_det  from detalle_grupo
-                        where id_grupo ='5' ORDER BY descripcion_det";
-                        $consultapar=$link->query($consultapar);
-                        echo "<select name='tipousuario' disabled>";
-                        while($rowpar=$consultapar->fetch_array()){
-                            echo "<option value='$rowpar[valor_det]'>$rowpar[descripcion_det]</option>";                        }
-                        echo "</select>";                        
-                    ?>
-                    <script language='javascript'>activasel('tipousuario','<?php echo $rowusu['tipousuario'];?>');</script>
-                </td>        
-            </tr>
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Fecha de nacimiento:</td>
-                <td class="Td2" align='left' width='50%'>
-                    <input type='text' name='fechanacimiento' size='10' maxlength='10' value='<?php echo $rowusu['fechanacimiento'];?>' disabled>
-                </td>
-            </tr>
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Sexo:</td>
-                <td class="Td2" align='left' width='50%'>
-                    <select name="codsexo" id="codsexo" disabled>
-                        <option value=''></option>
-                        <option value='H'>Hombre</option>
-                        <option value='M'>Mujer</option>
-                        <option value='I'>Indeterminado</option>
-                    </select>                    
-                    <script language='javascript'>activasel('codsexo','<?php echo $rowusu['codsexo'];?>');</script>
-                </td>        
-            </tr>
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Código del país de residencia:</td>
-                <td class="Td2" align='left' width='50%'>
-                    <input type='text' name='codpaisresidencia' size='3' maxlength='3' value='<?php echo $rowusu['codpaisresidencia'];?>' disabled>
-                </td>        
-            </tr>        
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Municipio de residencia:</td>
-                <td class="Td2" align='left' width='50%'>
-                    <?php
-                        $consultamun="select m.codigo_mun ,m.nombre_mun  
-                        from municipio m ORDER BY m.nombre_mun";
-                        $consultamun=$link->query($consultamun);
-                        echo "<select name='codmunicipioresidencia' disabled>";
-                        echo "<option value=''>";
-                        while($rowmun=$consultamun->fetch_array()){
-                            echo "<option value='$rowmun[codigo_mun]'>$rowmun[nombre_mun]</option>";
-                        }
-                        echo "</select>";
-                    ?>
-                    <script language='javascript'>activasel('codmunicipioresidencia','<?php echo $rowusu['codmunicipioresidencia'];?>');</script>
-                </td>        
-            </tr>
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Zona de residencia:</td>
-                <td class="Td2" align='left' width='50%'>
-                    <select name='codzonaresidencia' disabled>
-                        <option value=''></option>
-                        <option value='U'>Urbana</option>
-                        <option value='R'>Rural</option>    
-                    </select>
-                    <script language='javascript'>activasel('codzonaresidencia','<?php echo $rowusu['codzonaresidencia'];?>');</script>
-                </td>        
-            </tr>
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Incapacidad:</td>
-                <td class="Td2" align='left' width='50%'>
-                    <select name='incapacidad' disabled>
-                        <option value='NO'>NO
-                        <option value='SI'>SI
-                    </select>
-                    <script language='javascript'>activasel('incapacidad','<?php echo $rowusu['incapacidad'];?>');</script>
-                </td>        
-            </tr>
-            <tr>
-                <td class="Td2" align='right' width='50%'><b>Código del país de origen:</td>                
-                <td class="Td2" align='left' width='50%'>
-                    <input type='text' name='codpaisorigen' size='3' maxlength='3' value='<?php echo $rowusu['codpaisorigen'];?>' disabled>
-                </td>                       
-            </tr>
-            <tr>
-                <td class="Td6" align='right' width='50%'>
-                    <center><a href='#' onclick='activar()' title="Editar"><span class='icon-edit'></span> Editar</a></center>
-                </td>
-                <td class="Td6" align='left' width='50%'>
-                    <center><a href='#' onclick='validar()' title="Guardar"><span class='icon-save'></span> Guardar</a></center>
-                </td>
-            </tr>
-        </table>
-        </center>
-        <?php
+    $consultausu=$link->query($consultausu);    
+    
+    while($row=$consultausu->fetch_array()){
+        echo "<input type='hidden' name='id_usuario' id='id_usuario' value='$row[id_usuario]'>";
+        echo "<tr>";            
+        echo "<td class='Td2' align='left'><a href='#' onclick='editarUsuario($row[id_usuario])' title='Editar Registro'><span class='icon-open-book'></span></a></td>";
+        echo "<td class='Td2' align='left'></td>";
+        
+        echo "<td class='Td2' align='center'>$row[tipo_documento]</td>";            
+        echo "<td class='Td2' align='center'>$row[numdocumento]</td>";
+        
+        $nombreConcepto = traeConcepto($row['tipousuario'],5);
+        echo "<td class='Td2' align='left'>$nombreConcepto</td>";
+        echo "<td class='Td2' align='center'>$row[fechanacimiento]</td>";        
+        echo "<td class='Td2' align='center'>$row[codsexo]</td>";
+        echo "<td class='Td2' align='center'>$row[codpaisresidencia]</td>";
+        echo "<td class='Td2' align='left'>$row[nombre_mun]</td>";
+        echo "<td class='Td2' align='center'>$row[codzonaresidencia]</td>";
+        echo "<td class='Td2' align='center'>$row[incapacidad]</td>";
+        echo "<td class='Td2' align='center'>$row[codpaisorigen]</td>";        
+        echo "</tr>";
     }
-
-    ?>    
-
-    <br><br>
-
+    echo "</table>";
+    
+    ?>
+    <div class="cajaInput" id="editarUsuario">
+        <div class="cajaTitulo">
+            <cemter><h5>Editar Usuario</h5></cemter>
+        </div>          
+        
+        <div class="cajaContenido">
+            <input type="hidden" name="id_usuario" id="id_usuario">            
+            <br><span>Tipo de documento de identificación:</span>
+                <select name="tipo_documento" id="tipo_documento">
+                    <option value="">Seleccione</option>
+                    <?php
+                    $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                        from detalle_grupo dg 
+                        where dg.id_grupo ='14'");
+                        while($rowdes=$consultades->fetch_array()){                
+                        echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+                    }
+                    ?>
+                </select>
+            
+            <br><span>Número</span>
+            <input type="text" name="numdocumento" id="numdocumento" size="20" maxlength="20" value="0">
+            <br><span>Tipo de usuario</span>            
+            <select name="tipousuario" id="tipousuario">
+                    <option value="">Seleccione</option>
+                    <?php
+                    $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                        from detalle_grupo dg 
+                        where dg.id_grupo ='5'");
+                        while($rowdes=$consultades->fetch_array()){                
+                        echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+                    }
+                    ?>
+                </select>
+            <br><span>Fecha de nacimiento</span>
+            <input type="date" name="fechanacimiento" id="fechanacimiento" size="16" maxlength="16">
+            <br><span>Sexo:</span>
+                <select name="codsexo" id="codsexo">
+                    <option value="">Seleccione</option>
+                    <?php
+                    $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                        from detalle_grupo dg 
+                        where dg.id_grupo ='15'");
+                        while($rowdes=$consultades->fetch_array()){                
+                        echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+                    }
+                    ?>                    
+                </select>            
+            <br><span>Código país de residencia:</span>
+            <input type="text" name="codpaisresidencia" id="codpaisresidencia" size="3" maxlength="3">
+            <br><span>Municipio de residencia:</span>            
+                <select name="codmunicipioresidencia" id="codmunicipioresidencia">
+                    <option value="">Seleccione</option>
+                    <?php
+                    $consultades=$link->query("select m.codigo_mun, CONCAT(m.nombre_mun,' (',m.departamento,')') AS nombre_mun from municipio m
+                    ORDER BY m.nombre_mun");
+                        while($rowdes=$consultades->fetch_array()){                
+                        echo "<option value='$rowdes[codigo_mun]'>".substr($rowdes['nombre_mun'],0,40)."</option>";
+                    }
+                    ?>
+                </select>
+            <br><span>Zona de residencia:</span>
+                <select name="codzonaresidencia" id="codzonaresidencia">
+                    <option value="">Seleccione</option>
+                    <?php
+                    $consultades=$link->query("select dg.valor_det ,dg.descripcion_det 
+                    from detalle_grupo dg 
+                    where dg.id_grupo ='16'");
+                    while($rowdes=$consultades->fetch_array()){                
+                        echo "<option value='$rowdes[valor_det]'>".substr($rowdes['descripcion_det'],0,40)."</option>";
+                    }
+                    ?>
+                </select>
+            <br><span>Incapacidad:</span>            
+                <select name="incapacidad" id="incapacidad">
+                    <option value="">Seleccione</option>
+                    <option value="SI">Si</option>
+                    <option value="NO">No</option>
+                </select>
+            <br><span>Código país de origen:</span>
+            <input type="text" name="codpaisorigen" id="codpaisorigen" size="3" maxlength="3">
+            
+            <br><center>
+                <a href='#' onclick='validarEdicion()'><span class='icon-save'></span>Guardar</a>
+                <a href='#' onclick='cerrarEdicion()'><span class='icon-back'></span>Cancelar</a>
+            </center>
+        </div>         
+    </div>
 </form>
 </body>
 </html>
 
+<?php
+
+$consultausu->data_seek(0);
+$row = $consultausu->fetch_array();
+?>
+<script>
+    document.getElementById('tipo_documento').value="<?php echo $row['tipo_documento'];?>";
+    document.getElementById('numdocumento').value="<?php echo $row['numdocumento'];?>";
+    document.getElementById('tipousuario').value="<?php echo $row['tipousuario'];?>";
+    document.getElementById('fechanacimiento').value="<?php echo $row['fechanacimiento'];?>";
+    document.getElementById('codsexo').value="<?php echo $row['codsexo'];?>";
+    document.getElementById('codpaisresidencia').value="<?php echo $row['codpaisresidencia'];?>";
+    document.getElementById('codmunicipioresidencia').value="<?php echo $row['codmunicipioresidencia'];?>";
+    document.getElementById('codzonaresidencia').value="<?php echo $row['codzonaresidencia'];?>";
+    document.getElementById('incapacidad').value="<?php echo $row['incapacidad'];?>";
+    document.getElementById('codpaisorigen').value="<?php echo $row['codpaisorigen'];?>";
+    
+</script>
+
+<?php
+function traeConcepto($val_,$id_grupo){
+    $descripcion="";
+    $link=conectarbd();
+    $consultadet=$link->query("select dg.valor_det ,dg.descripcion_det 
+        from detalle_grupo dg 
+        where dg.id_grupo ='$id_grupo' and dg.valor_det='$val_'");
+    if($consultadet->num_rows > 0){
+        $rowdet=$consultadet->fetch_array();
+        $descripcion=$rowdet['descripcion_det'];
+    }    
+    return $descripcion;
+}
+
+
+?>

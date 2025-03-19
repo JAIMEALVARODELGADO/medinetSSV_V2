@@ -4,7 +4,7 @@ $link=conectarbd();
 
 $numautorizacion = $_POST['numautorizacion'];
 $idmipres = $_POST['idmipres'];
-$fechasuministrotecnologia = $_POST['fechasuministrotecnologia'];
+$fechasuministrotecnologia = str_replace('T', ' ',$_POST['fechasuministrotecnologia']);
 $tipoos = $_POST['tipoos'];
 $codtecnologia = $_POST['codtecnologia'];
 $nomtecnologia = $_POST['nomtecnologia'];

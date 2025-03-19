@@ -30,7 +30,7 @@ $giden_fac=$_SESSION['gid_factura'];
 
         <script>
 
-        function saveTextAsFile(nombreArchivo_) {
+        function saveTextAsFile(nombreArchivo_) {            
             var textarea = document.getElementById("json");
             var textToWrite = textarea.value;
 
@@ -142,7 +142,7 @@ if($consultafac->num_rows<>0){
             $consulta->codConsulta = $rowcon['codconsulta'];
             $consulta->modalidadGrupoServicioTecSal = $rowcon['modalidadgruposervicio'];
             $consulta->grupoServicios = $rowcon['gruposervicio'];
-            $consulta->codServicio = $rowcon['codservicio'];
+            $consulta->codServicio = intval($rowcon['codservicio']);
             $consulta->finalidadTecnologiaSalud = $rowcon['finalidadtecnologiasalud'];
             $consulta->causaMotivoAtencion = $rowcon['causamotivoatencion'];
             $consulta->codDiagnosticoPrincipal = $rowcon['coddiagnosticoprincipal'];
@@ -173,11 +173,7 @@ if($consultafac->num_rows<>0){
         }
     }
     
-    //echo"<br>".json_encode($consultas);
-    /*$servicios = new Servicio();
-    $servicios->consultas = $consultas;*/
-
-    //echo"<br>".json_encode($servicios);
+    //echo"<br>".json_encode($consultas);    
 
     $otrosServicios=array();
     //aqui se generan los otros servicios
@@ -281,20 +277,24 @@ if($consultafac->num_rows<>0){
     $fp=fopen($sfile,"w"); 
     fwrite($fp,$ripsJson); 
     fclose($fp);
-    echo"
+    /*echo"
     <div>   
         <a href='".$sfile."'><img width=20 height=20 src='icons/feed_disk.png' alt='Generar Archivo' border=0></a>    
         <a href='".$sfile."'><font color=#3300FF><b>Guardar Json</font></a>
     </div>
-    ";
+    ";*/
     //Fin bloque guardar archivo
-//$nombreArchivo="ripsJson".$numFactura.".json";*/
+    $nombreArchivo="ripsJson".$numFactura.".json";
+    
+    if($errores<>""){
+        echo"
+            <table class='Tbl0'>
+            <tr><td class='Td1'>Lista de errores</td></tr>
+            $errores
+            </table>";
+    }
 
 ?>
-<table class="Tbl0">
-    <tr><td class='Td1'>Lista de errores</td></tr>
-    <?php echo $errores;?>
-</table>
 
 
 <br>
@@ -303,8 +303,8 @@ if($consultafac->num_rows<>0){
 </textarea>
 
 <br><br>
-<div class='Td6'>
-  <center><a href='#' onclick="saveTextAsFile('<?php echo $nombreArchivo;?>')"><img src='icons/feed_disk.png' width='20' height='20'>Descargar Rips</a></center>
+<div class='Td6'>    
+  <center><a href='#' onclick="saveTextAsFile('<?php echo $nombreArchivo;?>')">Descargar Rips</a></center>
 </div>
     
 

@@ -111,7 +111,7 @@
         </div>
         <div class="fila">
         <span class="etiqueta"><label for="observacion">Observación:</label></span>
-        <span class="form-el"><textarea name='observacion_ing' cols='100' rows='3' maxlength='250'><?php echo $observacion_ing;?></textarea>
+        <span class="form-el"><textarea name='observacion_ing' cols='100' rows='3'><?php echo $observacion_ing;?></textarea>
         </div>
 
         <div class="fila">

@@ -168,7 +168,7 @@
         <div class="fila">
         <span class="etiqueta"><label for="dxnutricional_nut">Diagnóstico Nutricional:</label></span>
         <span class="form-el">
-            <textarea id='dxnutricional_nut' name='dxnutricional_nut' rows="4" cols="100" maxlength="400"></textarea>
+            <textarea id='dxnutricional_nut' name='dxnutricional_nut' rows="4" cols="100"></textarea>
         </span>
         </div>
 

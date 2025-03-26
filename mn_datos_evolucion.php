@@ -18,7 +18,7 @@
         </div>
         <div class="fila">
         <span class="etiqueta"><label for="observacion">Observación:</label></span>
-        <span class="form-el"><textarea id='observacion' name='observacion' maxlength='5000' minlength='150' rows='3' cols='100'></textarea>
+        <span class="form-el"><textarea id='observacion' name='observacion' minlength='150' rows='3' cols='100'></textarea>
         </span>
         </div>
         </div>

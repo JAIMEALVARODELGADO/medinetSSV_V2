@@ -105,7 +105,7 @@
                 <input type='text' id='cabeza_estado_efis' name='cabeza_estado_efis' size='30' maxlength='50' />
             </span>
             <span class="etiqueta">
-                <textarea id='cabeza_hallazgo_efis' name='cabeza_hallazgo_efis'  maxlength='900' cols="70" rows="4"></textarea></span>
+                <textarea id='cabeza_hallazgo_efis' name='cabeza_hallazgo_efis' cols="70" rows="4"></textarea></span>
         </div>
         <div class="fila">
             <span class="etiqueta"><label for="cuello_estado_efis">Cuello</label></span>
@@ -113,7 +113,7 @@
                 <input type='text' id='cuello_estado_efis' name='cuello_estado_efis' size='30' maxlength='50' />
             </span>
             <span class="etiqueta">
-                <textarea id='cuello_hallazdo_efis' name='cuello_hallazdo_efis' maxlength='900' cols="70" rows="4"></textarea></span>
+                <textarea id='cuello_hallazdo_efis' name='cuello_hallazdo_efis' cols="70" rows="4"></textarea></span>
         </div>
         <div class="fila">
             <span class="etiqueta"><label for="torax_estado_efis">Torax</label></span>
@@ -121,7 +121,7 @@
                 <input type='text' id='torax_estado_efis' name='torax_estado_efis' size='30' maxlength='50' />
             </span>
             <span class="etiqueta">
-                <textarea id='torax_hallazgo_efis' name='torax_hallazgo_efis' maxlength='900' cols="70" rows="4"></textarea></span>
+                <textarea id='torax_hallazgo_efis' name='torax_hallazgo_efis' cols="70" rows="4"></textarea></span>
         </div>
         <div class="fila">
             <span class="etiqueta"><label for="abdomen_estado_efis">Abdomen</label></span>
@@ -129,7 +129,7 @@
                 <input type='text' id='abdomen_estado_efis' name='abdomen_estado_efis' size='30' maxlength='50' />
             </span>
             <span class="etiqueta">
-                <textarea id='abdomen_hallazgo_efis' name='abdomen_hallazgo_efis' maxlength='900' cols="70" rows="4"></textarea></span>
+                <textarea id='abdomen_hallazgo_efis' name='abdomen_hallazgo_efis' cols="70" rows="4"></textarea></span>
         </div>
         <div class="fila">
             <span class="etiqueta"><label for="columna_estado_efis">Columna</label></span>
@@ -137,7 +137,7 @@
                 <input type='text' id='columna_estado_efis' name='columna_estado_efis' size='30' maxlength='50' />
             </span>
             <span class="etiqueta">
-                <textarea id='columna_hallazgo_efis' name='columna_hallazgo_efis' maxlength='900' cols="70" rows="4"></textarea></span>
+                <textarea id='columna_hallazgo_efis' name='columna_hallazgo_efis' cols="70" rows="4"></textarea></span>
         </div>
         <div class="fila">
             <span class="etiqueta"><label for="extremi_estado_efis">Extremidades</label></span>
@@ -145,7 +145,7 @@
                 <input type='text' id='extremi_estado_efis' name='extremi_estado_efis' size='30' maxlength='50' />
             </span>
             <span class="etiqueta">
-                <textarea id='extremi_hallazgo_efis' name='extremi_hallazgo_efis' maxlength='900' cols="70" rows="4"></textarea></span>
+                <textarea id='extremi_hallazgo_efis' name='extremi_hallazgo_efis' cols="70" rows="4"></textarea></span>
         </div>
 <!------------------------------->
 
@@ -171,7 +171,7 @@
         <div class="fila">
         <span class="etiqueta"><label for="observacion_con">Observación:</label></span>
         <span class="form-el">
-            <textarea id='observacion_con' name='observacion_con' maxlength='2000' cols="100" rows="4"></textarea>
+            <textarea id='observacion_con' name='observacion_con' cols="100" rows="4"></textarea>
         </span>
         </div>
 
@@ -217,12 +217,13 @@
         <div class="fila">
         <span class="etiqueta"><label for="analisis_con">Análisis:</label></span>
         <span class="form-el">
-            <textarea id='analisis_con' name='analisis_con' maxlength='2000' cols="100" rows="10"></textarea>     
+            <textarea id='analisis_con' name='analisis_con' cols="100" rows="10"></textarea>     
         </span>
         </div>
         <div class="fila">
         <span class="etiqueta"><label for="plan_con">Plan de Manejo:</label></span>
         <span class="form-el">
-            <textarea id='plan_con' name='plan_con' maxlength='2000' cols="100" rows="10"></textarea>     
+            <textarea id='plan_con' name='plan_con' cols="100" rows="10"></textarea>     
         </span>
         </div>
+

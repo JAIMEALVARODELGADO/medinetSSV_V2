@@ -41,7 +41,7 @@ if($consultanum->num_rows<>0){
     //Aqui actualizo el nuevo numero de la factura
     $sql_="UPDATE entidad SET numero_fac=$numero_fac+1";
     //echo "<br>".$sql_;
-    //$link->query($sql_);
+    $link->query($sql_);
 
     //Aqui actualizo el estado de la factura y le coloco el numero 
     $sql_="UPDATE encabezado_factura SET estado_fac='C',numero_fac='$numero_fac' WHERE id_factura='$id_factura'";
@@ -76,7 +76,7 @@ function generarRips($idfac_){
     from encabezado_factura ef
     inner join persona p ON p.id_persona = ef.id_persona 
     inner join paciente pac on pac.id_persona = p.id_persona 
-    inner join detalle_grupo dg on dg.codi_det = pac.tipo_usuario 
+    left join detalle_grupo dg on dg.codi_det = pac.tipo_usuario 
     where ef.id_factura ='$idfac_'";
     //echo "<br>".$consultausu;
     

@@ -31,9 +31,8 @@ session_start();
             document.form1.target='_new';
             document.form1.submit();
         }
-        function imprimir_orden(id_con_,tipo_ord_){            
+        function imprimir_orden(id_con_){            
             document.form1.id_consulta.value=id_con_;
-            document.form1.tipo_orden.value=tipo_ord_;
             document.form1.action='mn_inf_orden11.php';
             document.form1.target='_new';
             document.form1.submit();
@@ -129,7 +128,7 @@ if(!empty($condicion)){
             echo "<tr>";
             echo "<td><a href='#' onclick='imprimir($row[id_consulta]);' title='Imprimir Consulta'><span class='icon-clipboard'></span></a></td>";
             echo "<td><a href='#' onclick='imprimir_formula($row[id_consulta]);' title='Imprimir Formula'><span class='icon-bowl'></span></a></td>";
-            echo "<td><a href='#' onclick='imprimir_orden($row[id_consulta],20);' title='Imprimir Orden de Laboratorio'><span class='icon-documents'></span></a></td>";             
+            echo "<td><a href='#' onclick='imprimir_orden($row[id_consulta]);' title='Imprimir Ordenes'><span class='icon-documents'></span></a></td>";             
             echo "<td>$row[id_ingreso]</td>";
             echo "<td>$row[fecha_ing]</td>";
             echo "<td>$row[tipo_iden]</td>";
@@ -146,7 +145,6 @@ if(!empty($condicion)){
     //echo $sql_;
     ?>
     <input type="hidden" name="id_consulta" value="">
-    <input type="hidden" name="tipo_orden" value="">
     <!--<input type="hidden" name="sql_" value="<?php echo $sql_;?>">
     <input type="hidden" name="descripcion_for" value="<?php echo $descripcion_for;?>">-->
     <!--<center><a href="#" onclick='imprimir();' title='Imprimir'><span class="icon-print"></span> Imprimir</a></center>-->

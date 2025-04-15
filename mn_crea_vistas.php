@@ -137,10 +137,13 @@ if($vw==0){
 }
 
 $sql="CREATE OR REPLACE VIEW vw_consulta AS
-SELECT ingreso.id_ingreso, ingreso.jornada,ingreso.fecha_ing,consulta.id_consulta,consulta.fecha_con,persona.tipo_iden,persona.identificacion,CONCAT(persona.papellido,' ',persona.sapellido) AS apellidos,CONCAT(persona.pnombre,' ',persona.snombre) AS nombres,persona.direccion,persona.telefono ,persona.fecha_nacim,consulta.reingreso_con,consulta.quien_con,consulta.motivo_con,consulta.enfermedad_con,consulta.revsistemas_con,consulta.anteced_per_con,consulta.anteced_fam_con,consulta.id_cups,cups.descripcion_cups,consulta.finalidad_con,consulta.causaexte_con,consulta.analisis_con,consulta.plan_con,consulta.diag_prin,cie.codigo_cie,cie.descripcion_cie,consulta.diag_rel1,cierel.codigo_cie AS codigo_cierel1,cierel.descripcion_cie AS descripcion_cierel1,consulta.fecha_reg,consulta.observacion_con,consulta.id_formato,formatos.descripcion_for,formatos.grupo_for,consulta.id_operador,consulta.estado_con,CONCAT(usuario.pnombre,' ',usuario.snombre,' ',usuario.papellido,' ',usuario.sapellido) AS operador,usuario.identificacion AS ident_oper
+SELECT ingreso.id_ingreso, ingreso.jornada,ingreso.fecha_ing,ingreso.id_eps
+,consulta.id_consulta,consulta.fecha_con,persona.tipo_iden,persona.identificacion,CONCAT(persona.papellido,' ',persona.sapellido) AS apellidos,CONCAT(persona.pnombre,' ',persona.snombre) AS nombres,persona.direccion,persona.telefono ,persona.fecha_nacim,consulta.reingreso_con,consulta.quien_con,consulta.motivo_con,consulta.enfermedad_con,consulta.revsistemas_con,consulta.anteced_per_con,consulta.anteced_fam_con,consulta.id_cups,cups.descripcion_cups,consulta.finalidad_con,consulta.causaexte_con,consulta.analisis_con,consulta.plan_con,consulta.diag_prin,cie.codigo_cie,cie.descripcion_cie,consulta.diag_rel1,cierel.codigo_cie AS codigo_cierel1,cierel.descripcion_cie AS descripcion_cierel1,consulta.fecha_reg,consulta.observacion_con,consulta.id_formato,formatos.descripcion_for,formatos.grupo_for,consulta.id_operador,consulta.estado_con,CONCAT(usuario.pnombre,' ',usuario.snombre,' ',usuario.papellido,' ',usuario.sapellido) AS operador,usuario.identificacion AS ident_oper
+,eps.nombre_eps
 FROM consulta
 INNER JOIN ingreso ON ingreso.id_ingreso=consulta.id_ingreso
 INNER JOIN persona ON persona.id_persona=ingreso.id_persona
+INNER JOIN eps ON eps.id_eps=ingreso.id_eps
 INNER JOIN cie ON cie.id_cie=consulta.diag_prin
 LEFT JOIN cups ON cups.id_cups=consulta.id_cups
 LEFT JOIN cie AS cierel ON cierel.id_cie=consulta.diag_rel1

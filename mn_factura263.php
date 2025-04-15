@@ -324,8 +324,8 @@ if($consultafac->num_rows<>0){
         <div class="cajaContenido">
             <br><span>Número de Autrización:</span>
             <input type="text" name="numautorizacion" size="30" maxlength="30">
-            <br><span>MIPRES</span>
-            <input type="text" name="idmipres" size="11" maxlength="11" value="0">
+            <br><span>ID MIPRES</span>
+            <input type="text" name="idmipres" size="15" maxlength="15" value="0">
             <br><span>Fecha de suministro</span>
             <input type="datetime-local" name="fechasuministrotecnologia" size="16" maxlength="16">
             <br><span>Tipo de servicio:</span>            
@@ -386,8 +386,8 @@ if($consultafac->num_rows<>0){
             <input type="hidden" name="id_otroservicio" id="id_otroservicio">
             <br><span>Número de Autrización:</span>
             <input type="text" name="numautorizacionEd" id="numautorizacionEd" size="30" maxlength="30">
-            <br><span>MIPRES</span>
-            <input type="text" name="idmipresEd" id="idmipresEd" size="11" maxlength="11" value="0">
+            <br><span>ID MIPRES</span>
+            <input type="text" name="idmipresEd" id="idmipresEd" size="15" maxlength="15" value="0">
             <br><span>Fecha de suministro</span>
             <input type="datetime-local" name="fechasuministrotecnologiaEd" id="fechasuministrotecnologiaEd" size="16" maxlength="16">
             <br><span>Tipo de servicio:</span>

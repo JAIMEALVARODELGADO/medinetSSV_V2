@@ -23,7 +23,8 @@ $consultaenti=$link->query($consultaenti);
 $rowenti=$consultaenti->fetch_array(MYSQLI_ASSOC);
 //echo $rowenti['nombre_ent'];
 
-$consulta="SELECT ingreso.fecha_ing,CONCAT(persona.pnombre,' ',persona.snombre,' ',persona.papellido,' ',persona.sapellido) AS nombre,persona.tipo_iden,persona.identificacion,persona.fecha_nacim,FLOOR(DATEDIFF(ingreso.fecha_ing,persona.fecha_nacim)/365) AS edad,persona.direccion,ingreso.peso, ingreso.control_esfin,ingreso.desplazam,ingreso.alimentacion_indep,ingreso.comunicacion_verbal,ingreso.alergia_medicame,ingreso.alergia_alimento,ingreso.diag_prin,cie.codigo_cie,cie.descripcion_cie, paciente.tipo_sangre,eps.nombre_eps, operador.identificacion AS ident_oper,CONCAT(operador.pnombre,' ',operador.snombre,' ',operador.papellido,' ',operador.sapellido) AS nombre_oper
+$consulta="SELECT ingreso.fecha_ing,CONCAT(persona.pnombre,' ',persona.snombre,' ',persona.papellido,' ',persona.sapellido) AS nombre,persona.tipo_iden,persona.identificacion,persona.fecha_nacim,FLOOR(DATEDIFF(ingreso.fecha_ing,persona.fecha_nacim)/365) AS edad,persona.direccion,ingreso.peso, ingreso.control_esfin,ingreso.desplazam,ingreso.alimentacion_indep,ingreso.comunicacion_verbal,ingreso.alergia_medicame,ingreso.alergia_alimento,ingreso.diag_prin,observacion_ing
+,cie.codigo_cie,cie.descripcion_cie, paciente.tipo_sangre,eps.nombre_eps, operador.identificacion AS ident_oper,CONCAT(operador.pnombre,' ',operador.snombre,' ',operador.papellido,' ',operador.sapellido) AS nombre_oper
   FROM ingreso 
   INNER JOIN persona ON persona.id_persona=ingreso.id_persona 
   INNER JOIN paciente ON paciente.id_persona=persona.id_persona 
@@ -168,7 +169,15 @@ encabezado($pdf,$_GET['id_ingreso'],$rowenti);
       }
     }
 
-    $f+=10;
+    $f+=8;
+    $pdf->SetXY(10,$f);
+    $pdf->Cell(190,4,'OBSERVACIONES',0,0,'C',true);
+    
+    $f+=5;
+    $pdf->SetXY(10,$f);
+    $pdf->MultiCell(190,5,$row['observacion_ing'],1,'J',false);
+
+    $f = $pdf->GetY()+10;
     $pdf->SetXY(10,$f);
     $pdf->Cell(130,4,'NOMBRE Y FIRMA QUIEN DILIGENCIA',0,0,'L');
     $f+=10;

@@ -11,7 +11,7 @@
         </div>
         <div class="fila">
         <span class="etiqueta"><label for="fecha_evol">Fecha y Hora:</label></span>
-        <span class="form-el"><input type='text' id='fecha_evol' name='fecha_evol' value='<?php echo $hoy;?>' required='required' disabled=true/>
+        <span class="form-el"><input type='date' id='fecha_evol' name='fecha_evol' value='<?php echo $hoy;?>' required='required'/>
 
         <input type='time' id='hora_evol' name='hora_evol' value='<?php echo $hora;?>' required='required'/>
         </span>
